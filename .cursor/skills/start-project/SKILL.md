@@ -44,3 +44,5 @@ For many new projects, a minimal starting set is enough:
 ## Additional Guidance
 
 - Use the `repo-task-state` skill when the work should be recoverable from repo notes and git history.
+- Create or reuse a shared initiative branch (e.g., `feature/<initiative-name>`) for the new work and push there.
+- Do not merge to `main` without user verification. Only push directly to `main` for trivial docs/meta updates.

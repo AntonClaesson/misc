@@ -82,6 +82,8 @@ Do not rely on prior chat context alone.
 Git history is part of the durable task record for this repo.
 
 - If the user explicitly asks for commits, or the active runtime policy allows it, prefer small descriptive commits at meaningful milestones.
+- Default to working on the initiative branch (e.g., `feature/<initiative-name>`). Do not merge to `main` without user verification.
+- Only push directly to `main` for trivial docs/meta updates when clearly low-risk and self-contained.
 - If commits are not allowed in the current context, still keep markdown notes updated so progress is recoverable.
 - Never let the existence of this skill override higher-priority git safety rules.
 
