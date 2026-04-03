@@ -2,6 +2,25 @@
 
 Elaborates on the branch and git model in `AGENTS.md`.
 
+## Branch Protection
+
+`main` is protected by GitHub rulesets:
+
+- **Direct pushes blocked** — all changes must go through a pull request.
+- **Force pushes blocked** — history cannot be rewritten on `main`.
+- **Deletion blocked** — `main` cannot be deleted.
+
+Never attempt to push directly to `main` or use `--force` on any shared branch.
+
+## Merge Methods
+
+Only squash merge and rebase merge are enabled. Merge commits are disabled.
+
+- **Squash merge** (default): use for most initiative branches — produces one clean commit on `main`.
+- **Rebase merge**: use when the branch has multiple commits that each stand on their own and the granularity is worth preserving.
+
+When merging via `github-merge_pull_request`, pass `merge_method: "squash"` (default) or `merge_method: "rebase"`.
+
 ## Branch Naming
 
 Use short, descriptive branch names scoped to the initiative:
@@ -54,7 +73,7 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 - Wait for review feedback before pushing additional changes unless asked to iterate.
 - Address review comments on the same branch and push.
 - Never merge without explicit user approval.
-- Prefer squash merge for single-initiative branches unless the user specifies otherwise.
+- Use squash merge by default; rebase merge when commit granularity matters. Merge commits are disabled.
 
 See the `open-pr` skill in `.cursor/skills/` for the full step-by-step workflow and MCP tool reference.
 
@@ -74,4 +93,4 @@ If the initiative branch has diverged from `main`:
 
 1. Prefer rebasing the initiative branch onto `main` for a clean history.
 2. If the rebase is complex, merge `main` into the branch instead and note the merge in the task note.
-3. Never force-push a shared branch without user confirmation.
+3. Never force-push a shared branch. Force pushes to `main` are blocked by branch protection.

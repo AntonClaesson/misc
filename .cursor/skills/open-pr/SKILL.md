@@ -96,7 +96,9 @@ github-create_pull_request
 
 - **Never merge without explicit user approval.**
 - Use `github-merge_pull_request` when the user confirms.
-- Prefer squash merge for single-initiative branches to keep `main` history clean, unless the user specifies otherwise.
+- Default to `merge_method: "squash"` for a clean one-commit-per-initiative history.
+- Use `merge_method: "rebase"` when the branch has multiple commits worth preserving individually.
+- Merge commits are disabled on this repo — do not use `merge_method: "merge"`.
 
 ## Post-Merge Cleanup
 
