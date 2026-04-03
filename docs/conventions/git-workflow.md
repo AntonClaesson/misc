@@ -58,6 +58,16 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 
 See the `open-pr` skill in `.cursor/skills/` for the full step-by-step workflow and MCP tool reference.
 
+### Post-Merge Cleanup
+
+Once a PR is merged:
+
+1. Verify the merge via `github-pull_request_read` (method: `get`).
+2. Check out `main` and pull the latest.
+3. Delete the initiative branch locally and on the remote.
+
+This keeps the workspace clean and ready for the next task.
+
 ## Resolving Conflicts
 
 If the initiative branch has diverged from `main`:

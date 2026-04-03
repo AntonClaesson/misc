@@ -98,6 +98,17 @@ github-create_pull_request
 - Use `github-merge_pull_request` when the user confirms.
 - Prefer squash merge for single-initiative branches to keep `main` history clean, unless the user specifies otherwise.
 
+## Post-Merge Cleanup
+
+After a PR is merged (by the user or with their approval):
+
+1. Verify the merge using `github-pull_request_read` (method: `get`) — confirm `merged` is `true`.
+2. Switch to `main` and pull: `git checkout main && git pull`.
+3. Delete the local branch: `git branch -d <branch-name>`.
+4. Delete the remote branch: `git push origin --delete <branch-name>`.
+
+This leaves the workspace on a clean, up-to-date `main` and ready for the next task.
+
 ## Other Useful MCP Tools
 
 | Task | Tool |
