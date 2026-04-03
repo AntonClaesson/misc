@@ -21,11 +21,13 @@ For non-trivial work:
 - Keep commit messages focused on the purpose of the change.
 - If the task is non-trivial, update the task note before committing.
 
-## When To Push
+## Branch Strategy And When To Push
 
-- Do not push by default.
-- Push when the user explicitly asks, when a shared checkpoint is needed, or when a workflow clearly requires it.
-- Before pushing, make sure the working tree state and nearby markdown notes are consistent.
+- `main` is the stable, user-reviewed branch.
+- Default: create or reuse one shared feature branch per initiative (e.g., `feature/<initiative-name>`) and push work there.
+- Merge to `main` only after user verification.
+- Exception: trivial docs/meta updates may go directly to `main` when clearly low-risk and self-contained (e.g., typo fixes in `README.md`, non-controversial decision note updates). Do not use this exception for code or config changes.
+- Before any push, make sure the working tree and nearby markdown notes reflect the same state.
 
 ## Resume Behavior
 

@@ -37,13 +37,23 @@ Keep the repo easy for agents to understand and extend without assuming one lang
 - Use git history as part of the project memory. When allowed by the active agent/runtime policy, prefer small, descriptive commits at meaningful milestones rather than one large final commit.
 - When resuming work, inspect both the markdown notes and recent git history before making changes.
 
+## Branch Strategy
+
+- `main` is the stable, user-reviewed branch.
+- Default: create or reuse one shared feature branch per initiative (for example, `feature/<initiative-name>`), and push work there.
+- Merge to `main` only after user verification.
+- Exception: trivial docs/meta updates may go directly to `main` when clearly low-risk and self-contained (e.g., fixing typos in README, updating a decision note). Do not use this exception for code or config changes.
+
 ## Git And Remote Behavior
 
 - Read recent git history and current status before committing or pushing.
 - For non-trivial work, update the nearest task note before committing a milestone.
 - Prefer small meaningful commits over large mixed commits when the work naturally splits.
-- Do not push to remote unless the user explicitly asks or the workflow clearly requires it.
-- Before pushing, make sure nearby notes and the working tree reflect the same state.
+- Push intentionally:
+  - Push to the shared initiative branch to checkpoint work.
+  - Do not merge to `main` without user verification.
+  - Only push directly to `main` for trivial docs/meta updates covered by the exception above.
+- Before any push, make sure nearby notes and the working tree reflect the same state.
 
 ## Safety Rules
 

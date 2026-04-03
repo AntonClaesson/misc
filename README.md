@@ -48,6 +48,13 @@ misc/
 - Git history should be treated as part of the repo memory, especially for resumed work.
 - Pushing to remote should be intentional rather than automatic.
 
+## Branch Strategy
+
+- `main` is the stable, user-reviewed branch.
+- Default: create or reuse one shared feature branch per initiative (for example, `feature/<initiative-name>`) and push work there.
+- Merge to `main` only after user verification.
+- Exception: trivial docs/meta updates may go directly to `main` when clearly low-risk and self-contained (e.g., typo fixes in `README.md`, updating a decision note). Do not use this exception for code or config changes.
+
 ## Near-Term Plan
 
 1. Start by creating projects under `projects/` as specific needs appear.
