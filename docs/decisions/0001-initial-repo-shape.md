@@ -27,12 +27,13 @@ Top-level areas:
 - `projects/`
 - `workflows/`
 - `mcp/`
-- `skills/`
 - `packages/`
 - `templates/`
 - `scripts/`
 - `docs/`
 - `data/`
+
+Agent skills live in `.cursor/skills/`, not as a top-level directory.
 
 ## Consequences
 

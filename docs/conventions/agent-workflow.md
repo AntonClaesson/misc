@@ -1,62 +1,28 @@
 # Agent Workflow Convention
 
-This repository prefers lightweight, durable task tracking inside the repo itself.
+Elaborates on the task-state section of `AGENTS.md`.
 
-## Goal
+## Files To Read Before Acting
 
-Make interrupted agent runs easy to resume by leaving a clear trail in markdown files and git history.
+Start with the closest relevant sources:
 
-## Default Pattern
+1. Root `AGENTS.md` (always).
+2. Nearby `README.md` in the project or area being changed.
+3. Nearby `PLAN.md`, `TODO.md`, or `WORKLOG.md` if they exist.
+4. Relevant notes under `docs/`.
+5. Recent git history for the area being changed (especially on resume).
 
-For non-trivial work, agents should:
+## Choosing A Note Format
 
-1. Read existing markdown context before making changes.
-2. Record the current plan in a nearby markdown file.
-3. Make a small batch of changes.
-4. Update the markdown with progress, decisions, blockers, or next steps.
-5. Repeat until the task is complete.
+| Situation | Suggested file |
+|-----------|---------------|
+| Multi-step task within a project | `projects/<name>/PLAN.md` |
+| Ongoing lightweight checklist | `projects/<name>/TODO.md` |
+| Long-running work log | `projects/<name>/WORKLOG.md` |
+| Task spanning multiple repo areas | `docs/<topic>.md` |
 
-## What To Read First
+Use `templates/task-note.md` as a starting point when creating a new note.
 
-Start with the closest relevant sources of truth:
+## When Notes Are Not Needed
 
-- root `README.md`
-- root `AGENTS.md`
-- nearby `README.md`
-- nearby `PLAN.md`
-- nearby `TODO.md`
-- nearby `WORKLOG.md`
-- relevant notes in `docs/`
-- recent git history for the area being changed
-
-## Where To Write Progress
-
-- Prefer notes close to the work, such as `projects/<name>/PLAN.md`.
-- If the task spans multiple parts of the repo, use a note under `docs/`.
-- Prefer updating an existing note over creating a new one.
-
-## What To Capture
-
-Keep notes brief and practical:
-
-- current task goal
-- current status
-- assumptions
-- important decisions
-- blockers
-- next steps
-- references to related files or commits when useful
-
-## Git Use
-
-Git history is part of the working memory for this repo.
-
-- When permitted by the active agent policy, prefer small descriptive commits at meaningful milestones.
-- On resume, inspect recent commits before continuing.
-- Do not rely on chat history alone to reconstruct prior work.
-
-## Keep It Lightweight
-
-- Do not create elaborate planning systems before they are needed.
-- Do not create multiple overlapping status files for the same task.
-- For very small changes, a separate note may be unnecessary.
+Skip a separate note for very small, one-shot edits where the commit message alone captures the intent.

@@ -1,44 +1,40 @@
 # Git Workflow Convention
 
-This repository treats git history as part of the durable working context for agent-assisted tasks.
+Elaborates on the branch and git model in `AGENTS.md`.
 
-## Goal
+## Branch Naming
 
-Make the current state of work understandable from the repository itself, not only from chat history.
+Use short, descriptive branch names scoped to the initiative:
 
-## Before Committing
+- `add-meal-planner`
+- `refactor-agent-harness`
+- `fix-mcp-auth`
 
-For non-trivial work:
+If an initiative has sub-tasks, keep one shared branch as the integration point rather than spawning many feature branches.
 
-1. Read the nearest relevant task note or project note.
-2. Check the current git status and recent history.
-3. Make sure the markdown note reflects the current state of the task.
+## Commit Checklist
 
-## Commit Style
+Before committing non-trivial work:
 
-- Prefer small, descriptive commits at meaningful milestones.
-- Prefer multiple coherent commits over one large mixed commit when the work naturally splits.
-- Keep commit messages focused on the purpose of the change.
-- If the task is non-trivial, update the task note before committing.
+1. Read the nearest task note.
+2. Check `git status` and recent history.
+3. Update the task note to reflect the current state.
+4. Stage and commit with a message focused on *why*, not *what*.
 
-## Branch Strategy And When To Push
+## When To Push
 
-- `main` is the stable, user-reviewed branch.
-- Default: create or reuse one shared feature branch per initiative (e.g., `feature/<initiative-name>`) and push work there.
-- Merge to `main` only after user verification.
-- Exception: trivial docs/meta updates may go directly to `main` when clearly low-risk and self-contained (e.g., typo fixes in `README.md`, non-controversial decision note updates). Do not use this exception for code or config changes.
-- Before any push, make sure the working tree and nearby markdown notes reflect the same state.
+Push only when:
 
-## Resume Behavior
+- the user explicitly asks,
+- a shared checkpoint is needed for collaboration, or
+- a workflow (e.g., CI, PR) clearly requires it.
 
-When resuming interrupted work:
+Before pushing, verify that the working tree and nearby notes are consistent.
 
-1. Read the nearest markdown notes.
-2. Inspect recent commits for the relevant area.
-3. Reconcile the notes, current tree, and git history before continuing.
+## Resolving Conflicts
 
-## Safety
+If the initiative branch has diverged from `main`:
 
-- Never let repo conventions override higher-priority git safety rules.
-- Never commit secrets, raw private personal data, or local-only environment files.
-- Prefer a clean, understandable history over unnecessary churn.
+1. Prefer rebasing the initiative branch onto `main` for a clean history.
+2. If the rebase is complex, merge `main` into the branch instead and note the merge in the task note.
+3. Never force-push a shared branch without user confirmation.
