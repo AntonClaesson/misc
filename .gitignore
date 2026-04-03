@@ -1,0 +1,33 @@
+# Secrets and local environment
+.env
+.env.*
+*.local
+*.secret
+
+# Private personal data and raw exports
+data/private/
+data/raw/
+private/
+
+# OS and editor noise
+.DS_Store
+
+# Common dependency and build outputs
+node_modules/
+dist/
+build/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.next/
+.turbo/
+.cache/
+coverage/
+
+# Logs
+*.log
