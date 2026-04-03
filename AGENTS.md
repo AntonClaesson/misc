@@ -32,7 +32,7 @@ Agent skills live in `.cursor/skills/`.
 2. Commit progress to that branch, not directly to `main`.
 3. Merge to `main` only after user verification.
 
-**Direct-to-main exception:** trivial, self-contained docs or meta changes (typo fixes, README tweaks) may go directly to `main`. When in doubt, use a branch.
+**Branch protection:** `main` is protected by GitHub rulesets. Force pushes and direct pushes are blocked; all changes must go through a pull request. Never attempt to push directly to `main` or use `--force` on any shared branch.
 
 **Commit style:**
 
@@ -50,6 +50,7 @@ Agent skills live in `.cursor/skills/`.
 - When an initiative branch is ready for review, push and open a PR against `main` using the GitHub MCP tools (e.g., `github-create_pull_request`).
 - Do not open a PR without user confirmation unless the user has pre-approved the workflow.
 - Never merge a PR without explicit user approval.
+- Use squash merge by default. Use rebase merge when individual commit granularity matters. Merge commits are disabled.
 - After a PR is merged, verify via MCP, check out `main`, pull, and delete the initiative branch locally and on the remote.
 - See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
