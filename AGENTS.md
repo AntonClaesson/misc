@@ -45,6 +45,14 @@ Agent skills live in `.cursor/skills/`.
 - Do not push unless the user explicitly asks or the workflow clearly requires it.
 - Before pushing, ensure the working tree and nearby markdown notes are consistent.
 
+**Pull requests:**
+
+- When an initiative branch is ready for review, push and open a PR against `main` using the GitHub MCP tools (e.g., `github-create_pull_request`).
+- Do not open a PR without user confirmation unless the user has pre-approved the workflow.
+- Never merge a PR without explicit user approval.
+- See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
+- See `docs/conventions/git-workflow.md` for PR content and review conventions.
+
 **Resume behavior:**
 
 - Read the nearest markdown notes and inspect recent commits on the initiative branch.

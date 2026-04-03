@@ -31,6 +31,33 @@ Push only when:
 
 Before pushing, verify that the working tree and nearby notes are consistent.
 
+## Pull Requests
+
+Use the GitHub MCP tools (`github-create_pull_request`, `github-pull_request_read`, etc.) for all PR operations rather than shell commands.
+
+### When To Open
+
+- The user explicitly asks for a PR.
+- The initiative branch is complete and the user has pre-approved opening PRs.
+- A workflow step (CI, deploy) requires a PR as the trigger.
+
+Do not open a PR speculatively. If intent is ambiguous, confirm with the user first.
+
+### PR Content
+
+- **Title:** concise, imperative mood, matches the initiative purpose (e.g., "Add meal planner").
+- **Body:** short summary of what changed and why, notes for the reviewer, link to the task note if one exists. Avoid re-listing every commit.
+
+### After Opening
+
+- Share the PR URL with the user.
+- Wait for review feedback before pushing additional changes unless asked to iterate.
+- Address review comments on the same branch and push.
+- Never merge without explicit user approval.
+- Prefer squash merge for single-initiative branches unless the user specifies otherwise.
+
+See the `open-pr` skill in `.cursor/skills/` for the full step-by-step workflow and MCP tool reference.
+
 ## Resolving Conflicts
 
 If the initiative branch has diverged from `main`:
