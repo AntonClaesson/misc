@@ -1,0 +1,156 @@
+# Linear Workflow Convention
+
+How the `agentify` Linear project connects to this repo and how agents should use Linear when planning and executing work.
+
+This doc layers on top of the existing conventions:
+
+- `AGENTS.md` — top-level agent behavior and repo structure.
+- `docs/conventions/git-workflow.md` — branching, commits, PRs, and merges.
+- `docs/conventions/agent-workflow.md` — task notes and file-level state.
+
+When in doubt, the repo-level conventions take precedence for git operations. Linear is the planning and tracking layer.
+
+## How Linear Maps to the Repo
+
+The **agentify** project in Linear is the control plane for this repo. All non-trivial work in the repo should be represented as a Linear issue under that project.
+
+Linear hierarchy:
+
+- **Project** (`agentify`) — maps to this repo as a whole.
+- **Milestones** — phases or themed groupings (e.g., "Basic Setup", "First Tools"). Use when several issues share a goal or deadline. Skip for standalone tasks.
+- **Issues** — the unit of work. One issue = one scoped deliverable = one branch + one PR.
+
+## Issue Lifecycle
+
+### Statuses
+
+The Antonclaesson team uses these statuses. Keep them in sync with the actual git state:
+
+| Status | Meaning | Git state |
+|---|---|---|
+| **Backlog** | Planned, not yet ready to start. | No branch. |
+| **Todo** | Scoped and ready to be picked up. | No branch. |
+| **In Progress** | Actively being worked on. | Branch exists, commits in flight. |
+| **In Review** | PR open, awaiting review. | PR open against `main`. |
+| **Done** | Merged. Work is on `main`. | PR merged, branch deleted. |
+| **Canceled** | Dropped or superseded. | Branch deleted if one existed. |
+
+### Status Transitions
+
+Agents must update statuses as work progresses, not just at the end:
+
+1. **Backlog → Todo** — when the issue is scoped, described, and ready for work.
+2. **Todo → In Progress** — when an agent (or human) starts working. This is the claim (see "Parallel Agents" below).
+3. **In Progress → In Review** — when a PR is opened.
+4. **In Review → Done** — after the PR is merged. Only move to Done with explicit user approval or after confirming the merge.
+5. **Any → Canceled** — when the work is no longer needed.
+
+## Creating Issues
+
+### When to create
+
+- Any non-trivial planned work should have a Linear issue — don't track only in markdown.
+- Markdown task notes (PLAN.md, TODO.md) remain useful for in-flight scratch state, but Linear is the source of truth for what work exists and its status.
+- For very small, one-shot edits where a commit message suffices, skip the issue.
+
+### How to scope
+
+- **One issue per deliverable.** "Build meal planner CLI" is good. "Build various tools" is too broad.
+- If a task is too large for one agent session, break it into sub-issues before starting.
+
+### What to include in the description
+
+Write descriptions that let another agent pick up the work cold:
+
+- What needs to happen.
+- Where in the repo (which directories, files, or areas).
+- Constraints, dependencies, or open questions.
+- Acceptance criteria if applicable.
+
+### Priority
+
+Use Linear's scale. Default to Normal unless there's a clear reason otherwise:
+
+| Value | Label |
+|---|---|
+| 1 | Urgent |
+| 2 | High |
+| 3 | Normal |
+| 4 | Low |
+
+### Milestones
+
+- Assign to a milestone when the work belongs to a known phase.
+- If no milestone fits, leave the issue unassigned to any milestone.
+- Do not create milestones speculatively. Milestones should represent intentional phases with a clear scope.
+
+### Labels
+
+Use labels when they help with filtering or categorization, but don't over-tag. Keep the label set small and meaningful.
+
+## Parallel Agents and Issue Claiming
+
+Multiple Cloud Agents may run concurrently against this repo. The following protocol prevents two agents from working on the same issue.
+
+### Claiming Protocol
+
+Before starting work on any issue, an agent MUST:
+
+1. **Read the issue status from Linear.** If it is `In Progress`, `In Review`, or `Done`, stop — another agent or human owns it.
+2. **Check if a branch already exists** for the issue on the remote:
+   ```
+   git ls-remote --heads origin '*ant-<number>*'
+   ```
+   If a matching branch exists, the issue is claimed. Back off.
+3. **Move the issue to In Progress immediately** — before creating a branch or writing any code. This is the claim.
+4. **Only then** create the branch and begin work.
+
+### Race Conditions
+
+Two agents could both read "Todo" before either writes "In Progress." The branch-existence check (step 2) is the secondary guard — only one agent can successfully push a given branch name. If a push fails because the branch already exists on the remote:
+
+- Revert the status change if this agent was the one that made it.
+- Abandon the work and report the conflict to the user.
+
+### Best Practice: User-Assigned Work
+
+The safest approach for parallel agents is explicit assignment. When launching multiple agents, tell each one which issue to work on:
+
+- "Work on ANT-5"
+- "Work on ANT-6"
+
+This eliminates the race entirely. Agents self-selecting from the backlog is a fallback, not the default.
+
+### One Issue, One Agent
+
+Never have two agents collaborating on the same issue. If the work is too large, break it into sub-issues first, each independently claimable.
+
+## Referencing Linear Issues in Git
+
+- Include the Linear issue ID (e.g., `ANT-5`) in branch names, commit messages, and PR descriptions.
+- Linear auto-generates a suggested branch name per issue (e.g., `antonclaesson/ant-5-document-linear-workflow`). Agents may use this or follow the repo's branch naming convention, but should include the issue ID either way.
+- The issue ID in branch names also supports the parallel-agent branch-existence check described above.
+
+### Example
+
+For issue ANT-12 "Add weather dashboard":
+
+- Branch: `ant-12-weather-dashboard` or `antonclaesson/ant-12-add-weather-dashboard`
+- Commit: `ANT-12: scaffold weather dashboard project`
+- PR title: `ANT-12: Add weather dashboard`
+- PR body references: `Related: [ANT-12](https://linear.app/antonclaesson/issue/ANT-12)`
+
+## End-to-End Workflow
+
+Putting it all together — from ticket to merged code:
+
+1. **Issue exists in Linear** (Backlog or Todo) under the `agentify` project.
+2. **Agent claims the issue**: reads status, checks for existing branch, moves to In Progress.
+3. **Agent creates a branch** with the issue ID in the name.
+4. **Agent does the work**: commits, updates task notes if applicable.
+5. **Agent opens a PR** and moves the issue to In Review.
+6. **User reviews the PR.** Agent addresses feedback on the same branch.
+7. **User approves and merges.** Agent (or user) moves the issue to Done.
+8. **Cleanup**: branch deleted locally and on the remote.
+
+This keeps Linear, GitHub, and the repo in sync at every step.
