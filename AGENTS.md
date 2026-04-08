@@ -55,6 +55,13 @@ Agent skills live in `.cursor/skills/`.
 - See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
 
+**Linear integration:**
+
+- The `agentify` project in Linear is the planning and tracking layer for this repo.
+- Non-trivial work should have a corresponding Linear issue. Update issue status as work progresses.
+- When multiple agents run in parallel, claim issues before starting work.
+- See `docs/conventions/linear-workflow.md` for the full Linear workflow, issue creation guidelines, status mapping, and parallel-agent claiming protocol.
+
 **Resume behavior:**
 
 - Read the nearest markdown notes and inspect recent commits on the initiative branch.
