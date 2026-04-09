@@ -2,6 +2,13 @@
 
 Elaborates on the task-state section of `AGENTS.md`.
 
+## Pre-Work Checklist
+
+Before creating a branch or writing code:
+
+1. **Ensure a Linear issue exists** for the work. Search the `agentify` project in Linear for a matching issue. If none exists, create one with a clear title, description, and priority. See `docs/conventions/linear-workflow.md` § "Ticket-first gate" for the full protocol.
+2. **Claim the issue** by moving it to In Progress in Linear before creating the branch.
+
 ## Files To Read Before Acting
 
 Start with the closest relevant sources:

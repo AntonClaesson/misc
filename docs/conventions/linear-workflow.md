@@ -45,13 +45,29 @@ Agents must update statuses as work progresses, not just at the end:
 4. **In Review → Done** — after the PR is merged. Only move to Done with explicit user approval or after confirming the merge.
 5. **Any → Canceled** — when the work is no longer needed.
 
+## Ticket-First Gate
+
+**Every branch must have a corresponding Linear issue.** Before creating a branch, the agent must:
+
+1. **Search for an existing issue.** Use the Linear MCP tools to list or search issues in the `agentify` project that match the work being requested. Check titles, descriptions, and status.
+2. **Reuse if found.** If a matching issue exists (in any non-Done/Canceled state), adopt it. Move it to In Progress and proceed.
+3. **Create if not found.** If no matching issue exists, create one in the `agentify` project before writing any code. The new issue must include at minimum:
+   - A clear title describing the deliverable.
+   - A description that captures what needs to happen, where in the repo, and acceptance criteria.
+   - Priority (default to Normal / 3 unless context dictates otherwise).
+   - Assignment to the current agent or user (use `"me"`).
+4. **Then create the branch**, including the issue ID in the branch name (e.g., `ant-13-enforce-ticket-first`).
+
+This gate applies to **all work** — planned roadmap items, ad-hoc user requests, bug fixes, documentation changes, and refactors. The only exception is trivially small fixes (e.g., a one-line typo correction) where the commit message alone captures full intent; even then, prefer creating a ticket.
+
+**Rationale:** Without this gate, ad-hoc agent work can land in `main` via PRs that have no corresponding Linear record. This breaks traceability and makes it impossible to audit what was done and why through Linear alone.
+
 ## Creating Issues
 
 ### When to create
 
-- Any non-trivial planned work should have a Linear issue — don't track only in markdown.
+- **Always** — per the ticket-first gate above, every branch must have a corresponding issue.
 - Markdown task notes (PLAN.md, TODO.md) remain useful for in-flight scratch state, but Linear is the source of truth for what work exists and its status.
-- For very small, one-shot edits where a commit message suffices, skip the issue.
 
 ### How to scope
 
@@ -142,9 +158,9 @@ For issue ANT-12 "Add weather dashboard":
 
 ## End-to-End Workflow
 
-Putting it all together — from ticket to merged code:
+Putting it all together — from task to merged code:
 
-1. **Issue exists in Linear** (Backlog or Todo) under the `agentify` project.
+1. **Ensure a Linear issue exists** — search `agentify` for a matching issue. If none exists, create one (see "Ticket-first gate" above).
 2. **Agent claims the issue**: reads status, checks for existing branch, moves to In Progress.
 3. **Agent creates a branch** with the issue ID in the name.
 4. **Agent does the work**: commits, updates task notes if applicable.

@@ -28,9 +28,10 @@ Agent skills live in `.cursor/skills/`.
 
 **Default workflow:**
 
-1. Create or reuse an initiative branch for the current piece of work.
-2. Commit progress to that branch, not directly to `main`.
-3. Merge to `main` only after user verification.
+1. Ensure a Linear issue exists for the work (see "Ticket-first gate" below).
+2. Create or reuse an initiative branch for the current piece of work.
+3. Commit progress to that branch, not directly to `main`.
+4. Merge to `main` only after user verification.
 
 **Branch protection:** `main` is protected by GitHub rulesets. Force pushes and direct pushes are blocked; all changes must go through a pull request. Never attempt to push directly to `main` or use `--force` on any shared branch.
 
@@ -55,10 +56,20 @@ Agent skills live in `.cursor/skills/`.
 - See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
 
+**Ticket-first gate:**
+
+Every branch must have a corresponding Linear issue. Before creating a branch, the agent must:
+
+1. Search Linear for an existing issue that matches the requested work.
+2. If a matching issue exists, use it. If not, create a new issue in the `agentify` project with at least a title, description, and priority.
+3. Only then create the branch (including the issue ID in the branch name).
+
+This applies to all work — planned roadmap items and ad-hoc user requests alike. No branch without a ticket.
+
 **Linear integration:**
 
 - The `agentify` project in Linear is the planning and tracking layer for this repo.
-- Non-trivial work should have a corresponding Linear issue. Update issue status as work progresses.
+- All work must have a corresponding Linear issue. Update issue status as work progresses.
 - When multiple agents run in parallel, claim issues before starting work.
 - See `docs/conventions/linear-workflow.md` for the full Linear workflow, issue creation guidelines, status mapping, and parallel-agent claiming protocol.
 
