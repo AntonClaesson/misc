@@ -113,3 +113,26 @@ See `templates/project-readme.md` for a starting point.
 - Branch-first workflow; `main` is user-reviewed.
 - Agent state lives in markdown notes and git history.
 - Skills live exclusively in `.cursor/skills/`.
+
+## Cursor Cloud specific instructions
+
+This repo is currently all-markdown with no code dependencies. The only active project is `projects/kbase/` (a personal LLM knowledge base viewed in Obsidian).
+
+### Obsidian (kbase viewer)
+
+- Install: `cd /tmp && wget -q "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.12.7/obsidian_1.12.7_amd64.deb" -O obsidian.deb && sudo dpkg -i obsidian.deb`
+- Also install `scrot` (`sudo apt-get install -y scrot`) for screenshots during kbase-verify.
+- Before launching, create the vault config as described in `.cursor/skills/kbase-verify/SKILL.md` (Step 1). The `.obsidian/` directory is `.gitignore`d and must be recreated each session.
+- Launch: `DISPLAY=:1 obsidian --no-sandbox --disable-gpu &`
+- The kbase-ingest and kbase-verify skills in `.cursor/skills/` cover the full workflows.
+
+### Lint / test / build
+
+- No linter, test runner, or build step exists at the repo level. Each future project will have its own stack.
+- For kbase, quality checks are manual: verify wikilinks render, Mermaid diagrams display, and frontmatter is valid per `projects/kbase/SCHEMA.md`.
+
+### Gotchas
+
+- `main` is branch-protected; always work on an initiative branch.
+- The `.obsidian/` config is local-only (gitignored) and must be recreated each Cloud Agent session.
+- Obsidian may show a "Trust author" dialog on first launch — dismiss it to proceed.
