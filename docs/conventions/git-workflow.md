@@ -65,7 +65,8 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 ### PR Content
 
 - **Title:** concise, imperative mood, matches the initiative purpose (e.g., "Add meal planner").
-- **Body:** short summary of what changed and why, notes for the reviewer, link to the task note if one exists. Avoid re-listing every commit.
+- **Body:** short summary of what changed and why, notes for the reviewer, and a link to the corresponding Linear ticket. Avoid re-listing every commit.
+- **Linear ticket link:** every PR body must include a link to its Linear issue (e.g., `[ANT-7](https://linear.app/antonclaesson/issue/ANT-7)`). After opening the PR, also attach the PR URL back to the Linear ticket as a link. This bidirectional linking keeps GitHub and Linear navigable in both directions.
 
 ### After Opening
 
