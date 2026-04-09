@@ -23,11 +23,11 @@ When merging via `github-merge_pull_request`, pass `merge_method: "squash"` (def
 
 ## Branch Naming
 
-Use short, descriptive branch names scoped to the initiative:
+Include the Linear issue ID in the branch name (per the ticket-first gate). Use short, descriptive names scoped to the initiative:
 
-- `add-meal-planner`
-- `refactor-agent-harness`
-- `fix-mcp-auth`
+- `ant-5-add-meal-planner`
+- `ant-12-refactor-agent-harness`
+- `ant-7-fix-mcp-auth`
 
 If an initiative has sub-tasks, keep one shared branch as the integration point rather than spawning many feature branches.
 

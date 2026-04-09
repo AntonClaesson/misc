@@ -24,7 +24,7 @@ Agent skills live in `.cursor/skills/`.
 
 ## Branch And Git Model
 
-`main` is the stable, user-reviewed branch.
+`main` is the stable, reviewed branch (agent self-review by default; user review when escalated).
 
 **Default workflow:**
 
