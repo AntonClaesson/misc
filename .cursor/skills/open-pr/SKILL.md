@@ -83,8 +83,10 @@ github-create_pull_request
 
 ## After Opening
 
-- Share the PR URL with the user.
-- **Wait for feedback** before pushing additional changes, unless the user asks you to keep iterating.
+After opening the PR, follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+
+- **Default:** agent self-reviews and merges routine, well-tested changes.
+- **Escalate:** share the PR URL with the user for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.
 - If the user leaves review comments, address them on the same branch and push.
 
 ## Requesting Reviews
@@ -94,8 +96,7 @@ github-create_pull_request
 
 ## Merging
 
-- **Never merge without explicit user approval.**
-- Use `github-merge_pull_request` when the user confirms.
+- Follow the `pr-review-and-merge` skill for the full review-and-merge protocol.
 - Default to `merge_method: "squash"` for a clean one-commit-per-initiative history.
 - Use `merge_method: "rebase"` when the branch has multiple commits worth preserving individually.
 - Merge commits are disabled on this repo — do not use `merge_method: "merge"`.
