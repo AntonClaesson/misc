@@ -31,7 +31,7 @@ Agent skills live in `.cursor/skills/`.
 1. Ensure a Linear issue exists for the work (see "Ticket-first gate" below).
 2. Create or reuse an initiative branch for the current piece of work.
 3. Commit progress to that branch, not directly to `main`.
-4. Merge to `main` only after user verification.
+4. Merge to `main` after self-review (or user review when escalated). See the `pr-review-and-merge` skill.
 
 **Branch protection:** `main` is protected by GitHub rulesets. Force pushes and direct pushes are blocked; all changes must go through a pull request. Never attempt to push directly to `main` or use `--force` on any shared branch.
 
@@ -48,12 +48,13 @@ Agent skills live in `.cursor/skills/`.
 
 **Pull requests:**
 
-- When an initiative branch is ready for review, push and open a PR against `main` using the GitHub MCP tools (e.g., `github-create_pull_request`).
-- Do not open a PR without user confirmation unless the user has pre-approved the workflow.
-- Never merge a PR without explicit user approval.
+- When an initiative branch is ready, push and open a PR against `main`.
+- After opening, follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+- **Default: agent self-reviews and merges.** The agent performs a structured self-review (diff audit, test verification, convention compliance) and merges if the change is routine and well-tested.
+- **Escalate to the user** when the change is high-risk, destructive, ambiguous, or when the user explicitly requested manual review.
 - Use squash merge by default. Use rebase merge when individual commit granularity matters. Merge commits are disabled.
 - After a PR is merged, verify via MCP, check out `main`, pull, and delete the initiative branch locally. Keep the remote branch — do not delete it.
-- See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
+- See the `open-pr` skill in `.cursor/skills/` for PR creation steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
 
 **Ticket-first gate:**
@@ -121,7 +122,7 @@ See `templates/project-readme.md` for a starting point.
 ## Decision Summary
 
 - Polyglot-first, purpose-organized monorepo.
-- Branch-first workflow; `main` is user-reviewed.
+- Branch-first workflow; agents self-review and merge by default, escalating to the user for high-risk changes.
 - Agent state lives in markdown notes and git history.
 - Skills live exclusively in `.cursor/skills/`.
 

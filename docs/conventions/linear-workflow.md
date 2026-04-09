@@ -42,7 +42,7 @@ Agents must update statuses as work progresses, not just at the end:
 1. **Backlog → Todo** — when the issue is scoped, described, and ready for work.
 2. **Todo → In Progress** — when an agent (or human) starts working. This is the claim (see "Parallel Agents" below).
 3. **In Progress → In Review** — when a PR is opened.
-4. **In Review → Done** — after the PR is merged. Only move to Done with explicit user approval or after confirming the merge.
+4. **In Review → Done** — after the PR is merged (either by the agent after self-review, or by the user after manual review).
 5. **Any → Canceled** — when the work is no longer needed.
 
 ## Ticket-First Gate
@@ -165,8 +165,9 @@ Putting it all together — from task to merged code:
 3. **Agent creates a branch** with the issue ID in the name.
 4. **Agent does the work**: commits, updates task notes if applicable.
 5. **Agent opens a PR** and moves the issue to In Review.
-6. **User reviews the PR.** Agent addresses feedback on the same branch.
-7. **User approves and merges.** Agent (or user) moves the issue to Done.
-8. **Cleanup**: branch deleted locally and on the remote.
+6. **Agent follows the `pr-review-and-merge` skill** to self-review and merge (default) or escalate to the user for high-risk changes.
+7. **If escalated:** user reviews, agent addresses feedback, user approves merge.
+8. **After merge:** agent (or user) moves the issue to Done.
+9. **Cleanup**: branch deleted locally; remote branch preserved.
 
 This keeps Linear, GitHub, and the repo in sync at every step.

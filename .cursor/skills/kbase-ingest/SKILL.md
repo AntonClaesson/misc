@@ -72,7 +72,7 @@ This step is recommended for ingests that produce Mermaid diagrams, LaTeX, or co
 4. Push the branch.
 5. Open a PR against `main`. Attach verification screenshots if the visual verification step was performed.
 
-If the user has pre-approved merging (e.g., "ingest this and merge it"), merge via squash after self-review. Otherwise, leave the PR for review.
+After opening the PR, follow the `pr-review-and-merge` skill to self-review and merge (kbase ingests are typically auto-merge eligible). If the user explicitly asked for manual review, leave the PR open instead.
 
 ## Step 5: Linear (if applicable)
 

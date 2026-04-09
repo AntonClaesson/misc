@@ -69,13 +69,14 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 
 ### After Opening
 
-- Share the PR URL with the user.
-- Wait for review feedback before pushing additional changes unless asked to iterate.
+- Follow the `pr-review-and-merge` skill in `.cursor/skills/` to determine whether to self-merge or escalate.
+- **Default: agent self-reviews and merges** routine, well-tested changes.
+- **Escalate to the user** for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.
+- If escalating, share the PR URL with the user and wait for review feedback.
 - Address review comments on the same branch and push.
-- Never merge without explicit user approval.
 - Use squash merge by default; rebase merge when commit granularity matters. Merge commits are disabled.
 
-See the `open-pr` skill in `.cursor/skills/` for the full step-by-step workflow and MCP tool reference.
+See the `open-pr` skill for PR creation and the `pr-review-and-merge` skill for the full review and merge protocol.
 
 ### Post-Merge Cleanup
 
