@@ -139,6 +139,32 @@ Processing a new raw source into the wiki. This is the primary way the wiki grow
 
 When ingesting, prefer depth over breadth. It is better to create a few well-developed pages with good cross-references than many shallow pages.
 
+For the full orchestration workflow (fetching URLs, git cycle, Linear updates), see the `kbase-ingest` skill in `.cursor/skills/`.
+
+#### Web Sources
+
+When the source is a URL rather than a file already in `raw/`:
+
+1. Fetch the page content and convert to markdown.
+2. Save to `raw/` with this attribution header:
+
+```markdown
+# Article Title
+
+> **Source:** <original URL>
+> **Author:** <author if known, otherwise "Unknown">
+> **Date:** <publication date if known, otherwise "Unknown">
+> **Retrieved:** <today's ISO date>
+
+---
+
+<article content>
+```
+
+3. Name the file using kebab-case derived from the article title: `raw/<descriptive-name>.md`.
+4. Strip navigation, ads, cookie banners, and non-content boilerplate. Keep substantive text, code blocks, and image alt-text/captions.
+5. **Do not download or embed images.** If an image conveys important information (architecture diagram, chart, data visualization), describe it in text or recreate it as a Mermaid diagram during wiki compilation. See "Future: Image Handling" below for the planned approach.
+
 ### Query
 
 Answering a question against the wiki.
@@ -170,3 +196,35 @@ After linting, append a lint entry to `wiki/log.md` summarizing findings and act
 - **Keep pages focused.** One entity or topic per page. If a page grows beyond ~1000 words, consider splitting it into sub-topics.
 - **Maintain bidirectional links.** If page A links to page B, page B should generally link back to page A somewhere.
 - **Evolve the schema.** If you find these conventions don't fit a particular use case, note the issue and suggest an update to this file. Do not silently deviate.
+
+## Future: Image Handling
+
+> **Status: Not yet implemented.** This section documents the planned approach. Do not download or store images until this is implemented.
+
+The current rule is no binary files. When image support is added, the approach will be:
+
+### Planned Workflow
+
+During web source ingestion:
+
+1. **Identify meaningful images** in the fetched content — diagrams, charts, architecture visuals, screenshots that convey information. Skip decorative images, logos, author photos, and ads.
+2. **Download each image** to `wiki/assets/` using a descriptive kebab-case filename (e.g., `wiki/assets/llm-wiki-architecture.webp`).
+3. **Downsample and compress** to minimize repo bloat:
+   - Target resolution: **max 800px on the longest edge** (readable on screen, small file size).
+   - Target format: **WebP** (best size-to-quality ratio for the web).
+   - Target file size: **under 100KB per image** where possible.
+   - Tools: ImageMagick (`convert`), `cwebp`, or a Python script using Pillow.
+4. **Reference in wiki pages** using standard Obsidian image syntax: `![[llm-wiki-architecture.webp]]`.
+5. **Add a `.gitattributes` entry** to track images with Git LFS if the total asset size grows beyond ~50MB.
+
+### What Changes
+
+- `wiki/assets/` directory for all image files.
+- SCHEMA.md updated with image conventions (naming, sizing, format).
+- The ingest workflow gains an image processing step between fetching and wiki compilation.
+- Frontmatter may gain an `images` field listing referenced assets.
+
+### What Stays the Same
+
+- Mermaid remains the preferred choice for diagrams that can be expressed in text. Only use images when Mermaid can't represent the content (photos, complex data visualizations, UI screenshots).
+- Raw source files in `raw/` still contain only markdown text — images are processed into `wiki/assets/` directly.
