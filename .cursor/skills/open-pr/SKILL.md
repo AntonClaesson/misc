@@ -107,7 +107,7 @@ After a PR is merged (by the user or with their approval):
 1. Verify the merge using `github-pull_request_read` (method: `get`) — confirm `merged` is `true`.
 2. Switch to `main` and pull: `git checkout main && git pull`.
 3. Delete the local branch: `git branch -d <branch-name>`.
-4. Delete the remote branch: `git push origin --delete <branch-name>`.
+4. **Keep the remote branch.** Do not delete it — remote branches are preserved for future context and history.
 
 This leaves the workspace on a clean, up-to-date `main` and ready for the next task.
 

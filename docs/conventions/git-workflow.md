@@ -83,7 +83,8 @@ Once a PR is merged:
 
 1. Verify the merge via `github-pull_request_read` (method: `get`).
 2. Check out `main` and pull the latest.
-3. Delete the initiative branch locally and on the remote.
+3. Delete the initiative branch locally.
+4. **Keep the remote branch** — do not delete it. Remote branches are preserved for future context and history.
 
 This keeps the workspace clean and ready for the next task.
 

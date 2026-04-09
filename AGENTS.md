@@ -51,7 +51,7 @@ Agent skills live in `.cursor/skills/`.
 - Do not open a PR without user confirmation unless the user has pre-approved the workflow.
 - Never merge a PR without explicit user approval.
 - Use squash merge by default. Use rebase merge when individual commit granularity matters. Merge commits are disabled.
-- After a PR is merged, verify via MCP, check out `main`, pull, and delete the initiative branch locally and on the remote.
+- After a PR is merged, verify via MCP, check out `main`, pull, and delete the initiative branch locally. Keep the remote branch — do not delete it.
 - See the `open-pr` skill in `.cursor/skills/` for detailed steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
 
