@@ -1,6 +1,6 @@
 ---
 name: repo-health-check
-description: Audit repo workflow instructions, conventions, skills, and project metadata for consistency and staleness, then fix issues or report all clean. Use periodically to reduce technical debt that accumulates across many agent sessions.
+description: Audit repo workflow instructions, conventions, skills, and project metadata for consistency and staleness, then fix issues or report all clean. Use periodically to reduce technical debt that accumulates across many agent sessions. Also use proactively after completing a task that modified AGENTS.md, convention docs under docs/conventions/, or multiple Cursor skills.
 ---
 
 # Repo Health Check
@@ -9,9 +9,32 @@ Use this skill to audit the repo for workflow inconsistencies, stale artifacts, 
 
 ## When To Use
 
+### Explicit triggers (always run)
+
 - The user explicitly asks for a health check or repo audit.
 - You notice inconsistencies while working on an unrelated task and want to clean them up.
-- After a burst of several agent sessions that touched different areas.
+
+### Automatic triggers (run proactively after your own task completes)
+
+Run this skill **after merging your primary task's PR** if that task modified any of the following:
+
+- `AGENTS.md`
+- Any file under `docs/conventions/`
+- Two or more skill files under `.cursor/skills/`
+- `templates/` files that other docs or skills reference
+
+These are the files that define how agents operate. Changes to them can introduce cross-reference drift, stale instructions in other files, or contradictions — exactly what this skill catches.
+
+### When NOT to auto-trigger
+
+Do **not** run this skill automatically for:
+
+- Work scoped entirely within a single `projects/` directory (e.g., kbase ingests, new project scaffolds, bug fixes).
+- Changes that only add a new skill without modifying existing ones.
+- Documentation changes limited to project-level READMEs or task notes.
+- Any change that doesn't touch the files listed in the automatic triggers above.
+
+The threshold is intentionally high. Most agent sessions will not trigger this. That's by design — the value comes from running it selectively after impactful workflow changes, not routinely after every PR.
 
 ## Philosophy
 
