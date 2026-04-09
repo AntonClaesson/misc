@@ -162,14 +162,18 @@ PRs and Linear tickets must be cross-linked so that each is navigable from the o
 
 ### PR → Ticket
 
-Every PR body must include a **Linear issue** section with a link to the ticket:
+Include the Linear issue ID in the PR title (e.g., `ANT-12: Add weather dashboard`). This makes the PR searchable from Linear and connects it to the planning context.
+
+When the PR tool allows it, also include a `## Linear issue` section in the body with a clickable link:
 
 ```
 ## Linear issue
 [ANT-12](https://linear.app/antonclaesson/issue/ANT-12) — Add weather dashboard
 ```
 
-### Ticket → PR
+> **Cursor Cloud Agent limitation:** The `ManagePullRequest` tool blocks `linear.app` URLs in PR bodies. When using this tool, the issue ID in the PR title is the only available PR→Ticket reference. The Ticket→PR link (below) provides the clickable navigation.
+
+### Ticket → PR (primary navigable link)
 
 After opening a PR, the agent must attach the PR URL as a link on the Linear ticket:
 
@@ -179,11 +183,11 @@ Linear-save_issue
   links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
 ```
 
-This makes it possible to find the associated PR directly from a Linear ticket and vice versa, without relying on branch-name heuristics or search.
+This is the most reliable cross-link because it is not subject to PR tool restrictions. It enables one-click navigation from Linear's board view directly to the PR on GitHub.
 
 ### Why This Matters
 
-Without explicit links, navigating between a ticket and its PR requires searching by issue ID or branch name. This is fragile and slow, especially when browsing Linear's board view or triaging stale tickets. Bidirectional links make the relationship explicit and one-click navigable.
+Without explicit links, navigating between a ticket and its PR requires searching by issue ID or branch name. This is fragile and slow, especially when browsing Linear's board view or triaging stale tickets. The Ticket→PR link attachment solves the most common pain point (finding the PR from Linear). The issue ID in the PR title solves the reverse direction (finding the ticket from GitHub).
 
 ## End-to-End Workflow
 

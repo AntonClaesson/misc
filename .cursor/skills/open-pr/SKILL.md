@@ -52,14 +52,22 @@ Structure the body as:
 
 ## Notes for reviewer
 <Anything the reviewer should pay attention to: open questions, trade-offs, areas of uncertainty>
-
-## Linear issue
-<ANT-ID> — <link to the Linear ticket>
 ```
 
-Every PR must link to its corresponding Linear ticket in the body. Use the format `[ANT-<number>](https://linear.app/antonclaesson/issue/ANT-<number>)`. This is the primary way to navigate from a PR to the planning context behind it.
-
 Keep it focused. Do not re-list every commit — the reviewer can see the diff.
+
+### Title — include the Linear issue ID
+
+Always prefix the PR title with the Linear issue ID (e.g., `ANT-7: Add meal planner`). This makes the ticket searchable from the PR list and connects the PR to its planning context.
+
+### Linking to the Linear ticket
+
+The PR should reference its Linear ticket so reviewers can find the planning context. The preferred approaches, in order:
+
+1. **Clickable link in the body** — include a `## Linear issue` section with `[ANT-<number>](https://linear.app/antonclaesson/issue/ANT-<number>)`. This is the ideal format when the tool allows it.
+2. **Issue ID in title + body** — if the PR tool strips URLs (Cursor Cloud Agents' `ManagePullRequest` tool blocks `linear.app` URLs), ensure the issue ID appears in the PR title (e.g., `ANT-7: Add meal planner`). The issue ID is searchable in Linear and GitHub.
+
+Regardless of which approach the PR tool allows, the **Ticket→PR link** (added after opening — see below) is always the primary navigable connection.
 
 ### Example call
 
@@ -67,7 +75,7 @@ Keep it focused. Do not re-list every commit — the reviewer can see the diff.
 github-create_pull_request
   owner: <repo-owner>
   repo: <repo-name>
-  title: "Add meal planner project"
+  title: "ANT-7: Add meal planner project"
   head: "add-meal-planner"
   base: "main"
   body: |
@@ -83,13 +91,15 @@ github-create_pull_request
     [ANT-7](https://linear.app/antonclaesson/issue/ANT-7) — Add meal planner
 ```
 
+> **Note:** If the PR creation tool rejects `linear.app` URLs (as Cursor Cloud Agents do), omit the `## Linear issue` section. The issue ID in the title is sufficient for the PR→Ticket direction. The Ticket→PR link (next step) provides the clickable navigation.
+
 ## After Opening
 
 After opening the PR:
 
 ### 1. Attach the PR link to the Linear ticket
 
-Use the Linear MCP tool to add the PR URL as a link attachment on the corresponding Linear issue. This closes the loop — the ticket now links to the PR, and the PR body links to the ticket.
+Use the Linear MCP tool to add the PR URL as a link attachment on the corresponding Linear issue. This is the most reliable cross-link because it is not subject to PR tool restrictions.
 
 ```
 Linear-save_issue
@@ -97,7 +107,7 @@ Linear-save_issue
   links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
 ```
 
-This bidirectional linking makes it easy to navigate between the planning context in Linear and the implementation in GitHub.
+This makes the ticket directly navigable to its PR from Linear's board view.
 
 ### 2. Follow the review-and-merge skill
 
