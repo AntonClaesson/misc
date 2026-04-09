@@ -103,7 +103,7 @@ After opening the PR, follow the `pr-review-and-merge` skill in `.cursor/skills/
 
 ## Post-Merge Cleanup
 
-After a PR is merged (by the user or with their approval):
+After a PR is merged (by the agent after self-review, or by the user):
 
 1. Verify the merge using `github-pull_request_read` (method: `get`) — confirm `merged` is `true`.
 2. Switch to `main` and pull: `git checkout main && git pull`.

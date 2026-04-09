@@ -74,14 +74,14 @@ This step is recommended for ingests that produce Mermaid diagrams, LaTeX, or co
 
 After opening the PR, follow the `pr-review-and-merge` skill to self-review and merge (kbase ingests are typically auto-merge eligible). If the user explicitly asked for manual review, leave the PR open instead.
 
-## Step 5: Linear (if applicable)
+## Step 5: Linear
 
-If the ingest is tied to a Linear issue:
-- Move the issue to **In Progress** before starting (if not already).
+Per the ticket-first gate, every branch must have a corresponding Linear issue. Before creating the ingest branch:
+
+- Search the `agentify` project for an existing issue. If none exists, create one (e.g., "kbase: ingest <source name>").
+- Move the issue to **In Progress** before starting.
 - Move to **In Review** when the PR is opened.
 - Move to **Done** after merge.
-
-If there is no Linear issue, that's fine — not every ingest needs a ticket. Quick one-off ingests from a chat message don't require one.
 
 ## Quality Checklist
 
