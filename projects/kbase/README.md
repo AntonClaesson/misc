@@ -42,3 +42,5 @@ Point an Obsidian vault at `projects/kbase/`. The `wiki/` folder contains interl
 ## Agent Guide
 
 See [SCHEMA.md](SCHEMA.md) for the full operating manual — wiki conventions, page types, ingest/query/lint workflows, and frontmatter schema.
+
+To ingest a URL or raw source file, use the `kbase-ingest` skill in `.cursor/skills/` — it walks through the full workflow from fetching content to opening a PR.
