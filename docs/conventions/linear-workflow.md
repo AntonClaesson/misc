@@ -154,7 +154,36 @@ For issue ANT-12 "Add weather dashboard":
 - Branch: `ant-12-weather-dashboard` or `antonclaesson/ant-12-add-weather-dashboard`
 - Commit: `ANT-12: scaffold weather dashboard project`
 - PR title: `ANT-12: Add weather dashboard`
-- PR body references: `Related: [ANT-12](https://linear.app/antonclaesson/issue/ANT-12)`
+- PR body includes: `[ANT-12](https://linear.app/antonclaesson/issue/ANT-12) — Add weather dashboard`
+
+## Bidirectional PR ↔ Ticket Linking
+
+PRs and Linear tickets must be cross-linked so that each is navigable from the other.
+
+### PR → Ticket
+
+Every PR body must include a **Linear issue** section with a link to the ticket:
+
+```
+## Linear issue
+[ANT-12](https://linear.app/antonclaesson/issue/ANT-12) — Add weather dashboard
+```
+
+### Ticket → PR
+
+After opening a PR, the agent must attach the PR URL as a link on the Linear ticket:
+
+```
+Linear-save_issue
+  id: "ANT-12"
+  links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
+```
+
+This makes it possible to find the associated PR directly from a Linear ticket and vice versa, without relying on branch-name heuristics or search.
+
+### Why This Matters
+
+Without explicit links, navigating between a ticket and its PR requires searching by issue ID or branch name. This is fragile and slow, especially when browsing Linear's board view or triaging stale tickets. Bidirectional links make the relationship explicit and one-click navigable.
 
 ## End-to-End Workflow
 
@@ -164,10 +193,11 @@ Putting it all together — from task to merged code:
 2. **Agent claims the issue**: reads status, checks for existing branch, moves to In Progress.
 3. **Agent creates a branch** with the issue ID in the name.
 4. **Agent does the work**: commits, updates task notes if applicable.
-5. **Agent opens a PR** and moves the issue to In Review.
-6. **Agent follows the `pr-review-and-merge` skill** to self-review and merge (default) or escalate to the user for high-risk changes.
-7. **If escalated:** user reviews, agent addresses feedback, user approves merge.
-8. **After merge:** agent (or user) moves the issue to Done.
-9. **Cleanup**: branch deleted locally; remote branch preserved.
+5. **Agent opens a PR** — the PR body includes a link to the Linear ticket. The agent moves the issue to In Review.
+6. **Agent attaches the PR link to the Linear ticket** — adds the PR URL as a link on the issue so the ticket links back to the PR (see "Bidirectional PR ↔ Ticket Linking" above).
+7. **Agent follows the `pr-review-and-merge` skill** to self-review and merge (default) or escalate to the user for high-risk changes.
+8. **If escalated:** user reviews, agent addresses feedback, user approves merge.
+9. **After merge:** agent (or user) moves the issue to Done.
+10. **Cleanup**: branch deleted locally; remote branch preserved.
 
 This keeps Linear, GitHub, and the repo in sync at every step.

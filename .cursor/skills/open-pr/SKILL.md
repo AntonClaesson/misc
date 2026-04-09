@@ -53,9 +53,11 @@ Structure the body as:
 ## Notes for reviewer
 <Anything the reviewer should pay attention to: open questions, trade-offs, areas of uncertainty>
 
-## Related
-<Link to task note, issue, or prior discussion if applicable>
+## Linear issue
+<ANT-ID> — <link to the Linear ticket>
 ```
+
+Every PR must link to its corresponding Linear ticket in the body. Use the format `[ANT-<number>](https://linear.app/antonclaesson/issue/ANT-<number>)`. This is the primary way to navigate from a PR to the planning context behind it.
 
 Keep it focused. Do not re-list every commit — the reviewer can see the diff.
 
@@ -77,13 +79,29 @@ github-create_pull_request
     ## Notes for reviewer
     - Recipe parser uses heuristic matching; may need tuning for edge cases
 
-    ## Related
-    - Task note: projects/meal-planner/PLAN.md
+    ## Linear issue
+    [ANT-7](https://linear.app/antonclaesson/issue/ANT-7) — Add meal planner
 ```
 
 ## After Opening
 
-After opening the PR, follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+After opening the PR:
+
+### 1. Attach the PR link to the Linear ticket
+
+Use the Linear MCP tool to add the PR URL as a link attachment on the corresponding Linear issue. This closes the loop — the ticket now links to the PR, and the PR body links to the ticket.
+
+```
+Linear-save_issue
+  id: "ANT-<number>"
+  links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
+```
+
+This bidirectional linking makes it easy to navigate between the planning context in Linear and the implementation in GitHub.
+
+### 2. Follow the review-and-merge skill
+
+Follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
 
 - **Default:** agent self-reviews and merges routine, well-tested changes.
 - **Escalate:** share the PR URL with the user for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.
