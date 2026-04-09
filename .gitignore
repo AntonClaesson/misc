@@ -12,6 +12,9 @@ private/
 # OS and editor noise
 .DS_Store
 
+# Obsidian vault config (local agent/user state)
+.obsidian/
+
 # Common dependency and build outputs
 node_modules/
 dist/

@@ -58,17 +58,23 @@ Read and follow the **Ingest** operation defined in `projects/kbase/SCHEMA.md`. 
 
 Important: read `wiki/index.md` first to understand what pages already exist. Prefer updating existing pages over creating duplicates.
 
-## Step 3: Git Workflow
+## Step 3: Visual Verification (recommended)
+
+Before opening a PR, visually verify the wiki pages render correctly in Obsidian. Follow the `kbase-verify` skill in `.cursor/skills/` — it walks through launching Obsidian, checking Mermaid diagrams, wikilinks, LaTeX, and the graph view, and taking screenshots as evidence.
+
+This step is recommended for ingests that produce Mermaid diagrams, LaTeX, or complex page structures. It can be skipped for simple text-only ingests where rendering issues are unlikely.
+
+## Step 4: Git Workflow
 
 1. Create a branch. Include "ingest" and a short descriptor in the name (e.g., `cursor/ingest-react-server-components-f931`).
 2. Stage all changed files in `projects/kbase/`.
 3. Commit with a message like: `kbase: ingest <source name>` followed by a summary of pages created/updated.
 4. Push the branch.
-5. Open a PR against `main`.
+5. Open a PR against `main`. Attach verification screenshots if the visual verification step was performed.
 
 If the user has pre-approved merging (e.g., "ingest this and merge it"), merge via squash after self-review. Otherwise, leave the PR for review.
 
-## Step 4: Linear (if applicable)
+## Step 5: Linear (if applicable)
 
 If the ingest is tied to a Linear issue:
 - Move the issue to **In Progress** before starting (if not already).
