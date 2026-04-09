@@ -116,19 +116,39 @@ See `templates/project-readme.md` for a starting point.
 
 ## Cursor Cloud specific instructions
 
-This repo is currently all-markdown with no code dependencies. The only active project is `projects/kbase/` (a personal LLM knowledge base viewed in Obsidian).
+This is a polyglot monorepo. Each project under `projects/` is self-contained with its own stack, dependencies, and dev commands. There are no repo-wide code dependencies.
 
-### Obsidian (kbase viewer)
+### Repo-wide tools (baked into VM snapshot)
 
-- Install: `cd /tmp && wget -q "https://github.com/obsidianmd/obsidian-releases/releases/download/v1.12.7/obsidian_1.12.7_amd64.deb" -O obsidian.deb && sudo dpkg -i obsidian.deb`
-- Also install `scrot` (`sudo apt-get install -y scrot`) for screenshots during kbase-verify.
-- Before launching, create the vault config as described in `.cursor/skills/kbase-verify/SKILL.md` (Step 1). The `.obsidian/` directory is `.gitignore`d and must be recreated each session.
+Obsidian and scrot are installed in the VM snapshot via the update script. They do not need manual installation.
+
+- **Obsidian** — viewer for `projects/kbase/`. Before launching, recreate the vault config as described in `.cursor/skills/kbase-verify/SKILL.md` (Step 1). The `.obsidian/` directory is `.gitignore`d and must be recreated each session.
 - Launch: `DISPLAY=:1 obsidian --no-sandbox --disable-gpu &`
-- The kbase-ingest and kbase-verify skills in `.cursor/skills/` cover the full workflows.
+- The kbase-ingest and kbase-verify skills in `.cursor/skills/` cover the full kbase workflows.
+- **scrot** — used for screenshots during kbase-verify.
+
+### Working on a specific project
+
+Each project is independent. When you start work on a project:
+
+1. Read the project's own `README.md` for stack, dependencies, and run instructions.
+2. Install that project's dependencies using its package manager (check for lockfiles: `package-lock.json` → npm, `yarn.lock` → yarn, `pnpm-lock.yaml` → pnpm, `bun.lockb` → bun, `requirements.txt` / `pyproject.toml` → pip/uv, `Cargo.toml` → cargo, `go.mod` → go).
+3. Run lint, test, and build commands as documented in that project's README or config files (e.g. `package.json` scripts, `Makefile` targets, `pyproject.toml` scripts).
+4. Do not assume repo-wide tooling exists. There is no root `package.json`, `Makefile`, or equivalent.
+
+### Adding a new project's dependencies to the update script
+
+When a new code project is added to the repo and needs dependencies installed on every VM startup, update the VM update script to include that project's install command (guarded so it only runs if the project exists). Example pattern:
+
+```
+test -f projects/my-app/package.json && (cd projects/my-app && npm install)
+```
+
+Keep the update script minimal and idempotent. Only add dependency-install commands, not service startup or build steps.
 
 ### Lint / test / build
 
-- No linter, test runner, or build step exists at the repo level. Each future project will have its own stack.
+- No linter, test runner, or build step exists at the repo level. Each project brings its own.
 - For kbase, quality checks are manual: verify wikilinks render, Mermaid diagrams display, and frontmatter is valid per `projects/kbase/SCHEMA.md`.
 
 ### Gotchas
@@ -136,3 +156,5 @@ This repo is currently all-markdown with no code dependencies. The only active p
 - `main` is branch-protected; always work on an initiative branch.
 - The `.obsidian/` config is local-only (gitignored) and must be recreated each Cloud Agent session.
 - Obsidian may show a "Trust author" dialog on first launch — dismiss it to proceed.
+- The VM has `nvm` pre-installed. If a project uses a different Node version manager (e.g. `mise`, `fnm`), disable nvm first.
+- For Python projects, prefer `uv` if a `pyproject.toml` is present; fall back to `pip` with `requirements.txt`.
