@@ -13,7 +13,9 @@ Master catalog of all wiki pages, organized by category. Each entry links to the
 ## Topics
 
 - [[LLM Knowledge Bases]] — Pattern for building persistent, LLM-maintained wikis from raw sources
+- [[RGB-IR Demosaicing]] — Computational upscaling of infrared imagery in RGB-IR sensors; physics, algorithms, and lighting-dependent limits
 
 ## Source Summaries
 
+- [[source-gemini-rgb-ir-demosaicing|Gemini Deep Research: RGB-IR Demosaicing]] — User-produced research on RGB-IR sensor demosaicing and IR upscaling (April 2026)
 - [[source-karpathy-llm-wiki|Karpathy's LLM Wiki]] — Idea file describing the LLM Wiki pattern (April 2026)
