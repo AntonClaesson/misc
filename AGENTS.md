@@ -14,7 +14,7 @@ This file is the single source of truth for agent behavior in this repo.
 - `docs/`: short notes, decisions, and repo conventions.
 - `data/`: non-sensitive sample, derived, or disposable data only.
 
-Agent skills live in `.cursor/skills/`.
+Agent skills live in `.cursor/skills/` (canonical location). A symlink at `.github/skills/` points to the same directory so that both Cursor and GitHub Copilot CLI discover the same skills without duplication.
 
 ## Current Biases
 
@@ -51,12 +51,12 @@ Agent skills live in `.cursor/skills/`.
 **Pull requests:**
 
 - When an initiative branch is ready, push and open a PR against `main`.
-- After opening, follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+- After opening, follow the `pr-review-and-merge` skill to decide whether to self-merge or escalate to the user.
 - **Default: agent self-reviews and merges.** The agent performs a structured self-review (diff audit, test verification, convention compliance) and merges if the change is routine and well-tested.
 - **Escalate to the user** when the change is high-risk, destructive, ambiguous, or when the user explicitly requested manual review.
 - Use squash merge by default. Use rebase merge when individual commit granularity matters. Merge commits are disabled.
 - After a PR is merged, verify via MCP, check out `main`, pull, and delete the initiative branch locally. Keep the remote branch — do not delete it.
-- See the `open-pr` skill in `.cursor/skills/` for PR creation steps and MCP tool usage.
+- See the `open-pr` skill for PR creation steps and MCP tool usage.
 - See `docs/conventions/git-workflow.md` for PR content and review conventions.
 
 **Ticket-first gate:**
@@ -126,31 +126,51 @@ See `templates/project-readme.md` for a starting point.
 - Polyglot-first, purpose-organized monorepo.
 - Branch-first workflow; agents self-review and merge by default, escalating to the user for high-risk changes.
 - Agent state lives in markdown notes and git history.
-- Skills live exclusively in `.cursor/skills/`.
+- Skills live in `.cursor/skills/` (canonical) with a symlink at `.github/skills/` for Copilot CLI compatibility.
 
-## Cursor Cloud specific instructions
+## Agent Backend Support
 
-This is a polyglot monorepo. Each project under `projects/` is self-contained with its own stack, dependencies, and dev commands. There are no repo-wide code dependencies.
+This repo supports multiple agent backends. The core workflow (branching, tickets, task state, skills) is backend-agnostic. Each backend has its own section below covering environment-specific setup.
 
-### Repo-wide tools (baked into VM snapshot)
+### Supported backends
 
-Obsidian and scrot are installed in the VM snapshot via the update script. They do not need manual installation.
+| Backend | Interface | MCP servers | Skills path |
+|---------|-----------|-------------|-------------|
+| **Cursor Cloud Agents** | Cursor web chat | Managed by Cursor (not configured in this repo) | `.cursor/skills/` |
+| **GitHub Copilot CLI** | Terminal (`copilot`) | GitHub built-in; Linear via `.github/mcp.json` | `.github/skills/` (symlink → `.cursor/skills/`) |
 
-- **Obsidian** — viewer for `projects/kbase/`. Before launching, recreate the vault config as described in `.cursor/skills/kbase-verify/SKILL.md` (Step 1). The `.obsidian/` directory is `.gitignore`d and must be recreated each session.
-- Launch: `DISPLAY=:1 obsidian --no-sandbox --disable-gpu &`
-- The kbase-ingest and kbase-verify skills in `.cursor/skills/` cover the full kbase workflows.
-- **scrot** — used for screenshots during kbase-verify.
+### Working on a specific project (all backends)
 
-### Working on a specific project
+Each project under `projects/` is self-contained with its own stack, dependencies, and dev commands. There are no repo-wide code dependencies.
 
-Each project is independent. When you start work on a project:
+When you start work on a project:
 
 1. Read the project's own `README.md` for stack, dependencies, and run instructions.
 2. Install that project's dependencies using its package manager (check for lockfiles: `package-lock.json` → npm, `yarn.lock` → yarn, `pnpm-lock.yaml` → pnpm, `bun.lockb` → bun, `requirements.txt` / `pyproject.toml` → pip/uv, `Cargo.toml` → cargo, `go.mod` → go).
 3. Run lint, test, and build commands as documented in that project's README or config files (e.g. `package.json` scripts, `Makefile` targets, `pyproject.toml` scripts).
 4. Do not assume repo-wide tooling exists. There is no root `package.json`, `Makefile`, or equivalent.
 
-### Adding a new project's dependencies to the update script
+### Lint / test / build (all backends)
+
+- No linter, test runner, or build step exists at the repo level. Each project brings its own.
+- For kbase, quality checks are manual: verify wikilinks render, Mermaid diagrams display, and frontmatter is valid per `projects/kbase/SCHEMA.md`.
+
+---
+
+### Cursor Cloud specific instructions
+
+These apply only when running as a Cursor Cloud Agent on a Cursor-managed VM.
+
+#### Repo-wide tools (baked into VM snapshot)
+
+Obsidian and scrot are installed in the VM snapshot via the update script. They do not need manual installation.
+
+- **Obsidian** — viewer for `projects/kbase/`. Before launching, recreate the vault config as described in the `kbase-verify` skill (Step 1). The `.obsidian/` directory is `.gitignore`d and must be recreated each session.
+- Launch: `DISPLAY=:1 obsidian --no-sandbox --disable-gpu &`
+- The kbase-ingest and kbase-verify skills cover the full kbase workflows.
+- **scrot** — used for screenshots during kbase-verify.
+
+#### Adding a new project's dependencies to the update script
 
 When a new code project is added to the repo and needs dependencies installed on every VM startup, update the VM update script to include that project's install command (guarded so it only runs if the project exists). Example pattern:
 
@@ -160,12 +180,7 @@ test -f projects/my-app/package.json && (cd projects/my-app && npm install)
 
 Keep the update script minimal and idempotent. Only add dependency-install commands, not service startup or build steps.
 
-### Lint / test / build
-
-- No linter, test runner, or build step exists at the repo level. Each project brings its own.
-- For kbase, quality checks are manual: verify wikilinks render, Mermaid diagrams display, and frontmatter is valid per `projects/kbase/SCHEMA.md`.
-
-### Gotchas
+#### Cursor gotchas
 
 - `main` is branch-protected; always work on an initiative branch.
 - Push the initiative branch to `origin` at the checkpoints in `docs/conventions/git-workflow.md` so progress is visible on GitHub before a PR exists (same policy as root **Push policy**).
@@ -173,3 +188,32 @@ Keep the update script minimal and idempotent. Only add dependency-install comma
 - Obsidian may show a "Trust author" dialog on first launch — dismiss it to proceed.
 - The VM has `nvm` pre-installed. If a project uses a different Node version manager (e.g. `mise`, `fnm`), disable nvm first.
 - For Python projects, prefer `uv` if a `pyproject.toml` is present; fall back to `pip` with `requirements.txt`.
+
+---
+
+### Copilot CLI specific instructions
+
+These apply when running GitHub Copilot CLI locally on macOS or Linux.
+
+#### First-time setup
+
+1. Install GitHub Copilot CLI: `npm install -g @github/copilot` (requires Node.js 22+).
+2. Clone this repo and run `bash scripts/setup-copilot.sh` to verify the environment.
+3. Start Copilot from the repo root: `copilot`.
+
+#### MCP servers
+
+- **GitHub:** Built into Copilot CLI. No setup needed.
+- **Linear:** Configured in `.github/mcp.json` (committed to the repo). Uses the official Linear MCP server with OAuth authentication. On first use, Copilot will prompt you to authenticate with Linear in your browser. No API keys need to be stored locally.
+
+#### Skills
+
+Skills are discovered from `.github/skills/`, which is a symlink to `.cursor/skills/`. This means both Cursor and Copilot use the same skill files. The symlink uses a relative path (`../.cursor/skills`) and works on both Linux and macOS.
+
+#### Copilot gotchas
+
+- `main` is branch-protected; always work on an initiative branch.
+- The `.github/skills` symlink must resolve for skills to be discoverable. If it breaks, re-run `scripts/setup-copilot.sh`.
+- Copilot CLI reads `AGENTS.md` from the repo root as primary instructions. It also reads `.github/copilot-instructions.md` for supplementary guidance.
+- Some skills reference Cursor-specific tools (e.g., `scrot` for screenshots, Obsidian on a headless VM). These steps can be skipped or adapted when running locally — Obsidian can be opened natively on macOS/Linux without the `--no-sandbox --disable-gpu` flags.
+- **GitHub MCP write access:** The built-in GitHub MCP server is **read-only by default**. To enable write operations (create PRs, merge, comment, create branches, etc.), the user must launch with `copilot --enable-all-github-mcp-tools`. If you encounter "tool not found" errors for GitHub write operations, ask the user to relaunch with this flag.

@@ -11,7 +11,7 @@ All branching and commit rules are in `AGENTS.md`. This skill covers the PR life
 
 ## Prerequisites
 
-- The GitHub MCP server is available (tools prefixed `github-`).
+- The GitHub MCP server is available (tool names vary by agent backend — use whichever PR creation tool is in your toolset).
 - Work has been committed to an initiative branch (not `main`).
 - The branch has been pushed to the remote. Per `docs/conventions/git-workflow.md`, agents should already be pushing at checkpoints while work is in progress; if the branch is not on the remote yet, push with `git push -u origin HEAD` before proceeding.
 
@@ -27,7 +27,7 @@ Open a PR when **all** of the following are true:
 
 ## How To Open
 
-Use `github-create_pull_request` (not shell `gh` commands) to stay within the MCP toolset.
+Use the GitHub MCP server's PR creation tool (not shell `gh` commands) to stay within the MCP toolset.
 
 ### Preparing the PR
 
@@ -69,27 +69,15 @@ The PR should reference its Linear ticket so reviewers can find the planning con
 
 Regardless of which approach the PR tool allows, the **Ticket→PR link** (added after opening — see below) is always the primary navigable connection.
 
-### Example call
+### Example parameters
 
-```
-github-create_pull_request
-  owner: <repo-owner>
-  repo: <repo-name>
-  title: "ANT-7: Add meal planner project"
-  head: "add-meal-planner"
-  base: "main"
-  body: |
-    ## Summary
-    - Scaffold meal planner project under projects/meal-planner
-    - Implement recipe parser and weekly plan generator
-    - Add README with run instructions
+Use the GitHub MCP PR creation tool with parameters like:
 
-    ## Notes for reviewer
-    - Recipe parser uses heuristic matching; may need tuning for edge cases
-
-    ## Linear issue
-    [ANT-7](https://linear.app/antonclaesson/issue/ANT-7) — Add meal planner
-```
+- **owner / repo:** from the git remote
+- **title:** `"ANT-7: Add meal planner project"`
+- **head:** `"add-meal-planner"`
+- **base:** `"main"`
+- **body:** structured summary, reviewer notes, and optionally a `## Linear issue` section with a link to the ticket
 
 > **Note:** If the PR creation tool rejects `linear.app` URLs (as Cursor Cloud Agents do), omit the `## Linear issue` section. The issue ID in the title is sufficient for the PR→Ticket direction. The Ticket→PR link (next step) provides the clickable navigation.
 
@@ -99,19 +87,11 @@ After opening the PR:
 
 ### 1. Attach the PR link to the Linear ticket
 
-Use the Linear MCP tool to add the PR URL as a link attachment on the corresponding Linear issue. This is the most reliable cross-link because it is not subject to PR tool restrictions.
-
-```
-Linear-save_issue
-  id: "ANT-<number>"
-  links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
-```
-
-This makes the ticket directly navigable to its PR from Linear's board view.
+Use the Linear MCP server's issue update tool to add the PR URL as a link attachment on the corresponding Linear issue. Pass the issue ID (e.g., `ANT-<number>`) and a `links` array with the PR URL and title. This is the most reliable cross-link because it is not subject to PR tool restrictions and makes the ticket directly navigable to its PR from Linear's board view.
 
 ### 2. Follow the review-and-merge skill
 
-Follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+Follow the `pr-review-and-merge` skill to decide whether to self-merge or escalate to the user.
 
 - **Default:** agent self-reviews and merges routine, well-tested changes.
 - **Escalate:** share the PR URL with the user for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.
@@ -119,8 +99,8 @@ Follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to
 
 ## Requesting Reviews
 
-- Use `github-request_copilot_review` if the user wants automated feedback before their own review.
-- Use `github-update_pull_request` with `reviewers` to request human reviewers when asked.
+- Use the GitHub MCP tool for requesting a Copilot review if the user wants automated feedback before their own review.
+- Use the GitHub MCP tool for updating a PR with `reviewers` to request human reviewers when asked.
 
 ## Merging
 
@@ -133,22 +113,24 @@ Follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to
 
 After a PR is merged (by the agent after self-review, or by the user):
 
-1. Verify the merge using `github-pull_request_read` (method: `get`) — confirm `merged` is `true`.
+1. Verify the merge using the GitHub MCP PR read tool — confirm the PR's `merged` status is `true`.
 2. Switch to `main` and pull: `git checkout main && git pull`.
 3. Delete the local branch: `git branch -d <branch-name>`.
 4. **Keep the remote branch.** Do not delete it — remote branches are preserved for future context and history.
 
 This leaves the workspace on a clean, up-to-date `main` and ready for the next task.
 
-## Other Useful MCP Tools
+## Other Useful MCP Operations
 
-| Task | Tool |
-|------|------|
-| Read PR details | `github-pull_request_read` (method: `get`) |
-| View PR diff | `github-pull_request_read` (method: `get_diff`) |
-| List PR files | `github-pull_request_read` (method: `get_files`) |
-| Read review comments | `github-pull_request_read` (method: `get_review_comments`) |
-| Check CI status | `github-pull_request_read` (method: `get_check_runs`) |
-| Add a PR comment | `github-add_issue_comment` |
-| Update PR title/body | `github-update_pull_request` |
-| Update branch from main | `github-update_pull_request_branch` |
+The GitHub MCP server provides tools for these common PR operations. Tool names vary by agent backend — use whichever matching tool is in your available toolset.
+
+| Task | What to look for |
+|------|-----------------|
+| Read PR details | PR read/get tool |
+| View PR diff | PR diff tool |
+| List PR files | PR files tool |
+| Read review comments | PR review comments tool |
+| Check CI status | PR check runs tool |
+| Add a PR comment | Issue/PR comment tool |
+| Update PR title/body | PR update tool |
+| Update branch from main | PR branch update tool |

@@ -71,3 +71,11 @@ stack, and notes.
   Not urgent until the repo has more content.
 - **Per-project conventions:** `.cursor/rules/` files with glob patterns could enforce
   per-language norms once real projects land. Not needed yet.
+
+## Subsequent Updates
+
+- **Multi-agent backend support (April 2026):** The harness was extended to support
+  GitHub Copilot CLI alongside Cursor Cloud Agents. Skills are shared via a symlink
+  (`.github/skills/` → `.cursor/skills/`), AGENTS.md was restructured with backend-specific
+  subsections, and Cursor-specific path references were generalized. See decision record
+  `docs/decisions/0004-multi-agent-backend.md`.

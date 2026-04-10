@@ -60,7 +60,7 @@ Important: read `wiki/index.md` first to understand what pages already exist. Pr
 
 ## Step 3: Visual Verification (recommended)
 
-Before opening a PR, visually verify the wiki pages render correctly in Obsidian. Follow the `kbase-verify` skill in `.cursor/skills/` — it walks through launching Obsidian, checking Mermaid diagrams, wikilinks, LaTeX, and the graph view, and taking screenshots as evidence.
+Before opening a PR, visually verify the wiki pages render correctly in Obsidian. Follow the `kbase-verify` skill — it walks through launching Obsidian, checking Mermaid diagrams, wikilinks, LaTeX, and the graph view, and taking screenshots as evidence.
 
 This step is recommended for ingests that produce Mermaid diagrams, LaTeX, or complex page structures. It can be skipped for simple text-only ingests where rendering issues are unlikely.
 

@@ -175,13 +175,7 @@ When the PR tool allows it, also include a `## Linear issue` section in the body
 
 ### Ticket → PR (primary navigable link)
 
-After opening a PR, the agent must attach the PR URL as a link on the Linear ticket:
-
-```
-Linear-save_issue
-  id: "ANT-12"
-  links: [{"url": "https://github.com/<owner>/<repo>/pull/<number>", "title": "PR #<number>: <PR title>"}]
-```
+After opening a PR, the agent must attach the PR URL as a link on the Linear ticket using the Linear MCP issue update tool. Pass the issue ID (e.g., `ANT-12`) and a `links` array containing the PR URL and a descriptive title (e.g., `PR #<number>: <PR title>`).
 
 This is the most reliable cross-link because it is not subject to PR tool restrictions. It enables one-click navigation from Linear's board view directly to the PR on GitHub.
 

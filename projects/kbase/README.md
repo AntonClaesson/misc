@@ -37,12 +37,12 @@ Point an Obsidian vault at `projects/kbase/`. The `wiki/` folder contains interl
 - Obsidian as the viewing/browsing frontend
 - Mermaid for diagrams (rendered natively in Obsidian)
 - LaTeX for math (`$...$` inline, `$$...$$` block)
-- LLM agents (via Cursor Cloud Agents) for all wiki maintenance
+- LLM agents (via Cursor Cloud Agents or Copilot CLI) for all wiki maintenance
 
 ## Agent Guide
 
 See [SCHEMA.md](SCHEMA.md) for the full operating manual — wiki conventions, page types, ingest/query/lint workflows, and frontmatter schema.
 
-To ingest a URL or raw source file, use the `kbase-ingest` skill in `.cursor/skills/` — it walks through the full workflow from fetching content to opening a PR.
+To ingest a URL or raw source file, use the `kbase-ingest` skill — it walks through the full workflow from fetching content to opening a PR.
 
 To visually verify wiki pages render correctly in Obsidian before merging, use the `kbase-verify` skill — it covers launching Obsidian on the Cloud Agent's VNC desktop, checking Mermaid/LaTeX/wikilinks, and taking screenshots as PR evidence.
