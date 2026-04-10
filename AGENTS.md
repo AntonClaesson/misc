@@ -216,3 +216,4 @@ Skills are discovered from `.github/skills/`, which is a symlink to `.cursor/ski
 - The `.github/skills` symlink must resolve for skills to be discoverable. If it breaks, re-run `scripts/setup-copilot.sh`.
 - Copilot CLI reads `AGENTS.md` from the repo root as primary instructions. It also reads `.github/copilot-instructions.md` for supplementary guidance.
 - Some skills reference Cursor-specific tools (e.g., `scrot` for screenshots, Obsidian on a headless VM). These steps can be skipped or adapted when running locally — Obsidian can be opened natively on macOS/Linux without the `--no-sandbox --disable-gpu` flags.
+- **GitHub MCP write access:** The built-in GitHub MCP server is **read-only by default**. To enable write operations (create PRs, merge, comment, create branches, etc.), the user must launch with `copilot --enable-all-github-mcp-tools`. If you encounter "tool not found" errors for GitHub write operations, ask the user to relaunch with this flag.
