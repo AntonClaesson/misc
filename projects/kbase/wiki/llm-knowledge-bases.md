@@ -63,7 +63,7 @@ A single ingest can touch 10-15 wiki pages. Good query answers should be filed b
 
 ## Applications
 
-According to [[source-karpathy-llm-wiki|Karpathy's original gist]], the pattern applies to:
+According to [[Andrej Karpathy|Karpathy's original gist]], the pattern applies to:
 
 - **Personal** — goals, health, self-improvement, journal entries
 - **Research** — deep-dives over weeks or months with evolving thesis
@@ -74,6 +74,19 @@ According to [[source-karpathy-llm-wiki|Karpathy's original gist]], the pattern 
 ## Historical Context
 
 The idea echoes [[Vannevar Bush]]'s [[Memex]] (1945) — a personal knowledge store with associative trails. Bush envisioned connections between documents as valuable as the documents themselves. The missing piece was who does the maintenance; LLMs solve that.
+
+## Navigation at Scale
+
+According to [[Andrej Karpathy|Karpathy]], two structural files support navigation even as the wiki grows:
+
+- **index.md** — content-oriented catalog of all pages, organized by category. The LLM reads this first when answering queries. Works well up to ~100 sources / hundreds of pages without needing embedding-based search.
+- **log.md** — chronological, append-only record of operations. Parseable with unix tools (`grep "^## \[" wiki/log.md | tail -5` gives the last five entries).
+
+At larger scale, a search engine like qmd (BM25 + vector search with MCP support) can supplement the index.
+
+## Why It Works
+
+Humans abandon wikis because maintenance burden grows faster than value. LLMs eliminate that cost — they don't get bored, don't forget cross-references, and can touch many files in one pass. The human focuses on curation, direction, and meaning; the LLM handles summarizing, cross-referencing, filing, and bookkeeping.
 
 ## Related
 

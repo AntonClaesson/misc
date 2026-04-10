@@ -29,7 +29,7 @@ In the [[LLM Knowledge Bases]] workflow, Obsidian serves as the **human-facing f
 
 ## Useful Plugins and Tools
 
-According to [[source-karpathy-llm-wiki|Karpathy's gist]]:
+According to [[Andrej Karpathy|Karpathy's gist]]:
 
 - **Obsidian Web Clipper** — browser extension that converts web articles to markdown for sourcing.
 - **Marp plugin** — renders markdown-based slide decks from wiki content.

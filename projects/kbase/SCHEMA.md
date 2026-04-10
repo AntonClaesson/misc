@@ -56,7 +56,7 @@ Fields:
 | Field | Required | Description |
 |---|---|---|
 | `title` | Yes | Human-readable page title. |
-| `type` | Yes | One of: `entity`, `topic`, `source`. |
+| `type` | Yes | One of: `entity`, `topic`. |
 | `tags` | Yes | List of lowercase kebab-case tags for categorization. |
 | `created` | Yes | ISO date when the page was first created. |
 | `updated` | Yes | ISO date of the most recent substantive edit. |
@@ -84,23 +84,11 @@ A broader subject that synthesizes information across multiple sources and entit
 - Structure: start with a concise overview, then use sections to break down subtopics. Include a "Related" section with wikilinks to connected pages.
 - Topic pages are where synthesis and cross-referencing happen. They should connect dots between entities and sources.
 
-### Source Summary Pages
-
-One page per ingested raw source. Captures key takeaways and links to the entity/topic pages the source contributed to.
-
-- Filename: `source-` prefix followed by a short descriptor (e.g., `source-karpathy-llm-wiki.md`).
-- `type: source` in frontmatter.
-- Structure:
-  1. **Metadata** — author, date, URL or origin.
-  2. **Summary** — 3-5 bullet points of key takeaways.
-  3. **Detailed Notes** — deeper extraction, organized by theme.
-  4. **Pages Updated** — list of wikilinks to entity/topic pages that were created or updated from this source.
-
 ### Index (`wiki/index.md`)
 
 The master catalog of all wiki pages. No frontmatter needed.
 
-- Organized by category: Entities, Topics, Source Summaries.
+- Organized by category: Entities, Topics.
 - Each entry: a wikilink followed by a one-line description.
 - Keep alphabetically sorted within each category.
 - Update the index every time you create a new page.
@@ -130,12 +118,13 @@ The log should be parseable with simple tools: `grep "^## \[" wiki/log.md | tail
 Processing a new raw source into the wiki. This is the primary way the wiki grows.
 
 1. **Read** the source file from `raw/`.
-2. **Create a source summary page** in `wiki/` following the source page conventions above.
-3. **Create new entity/topic pages** for significant concepts, people, tools, etc. that don't already have pages.
-4. **Update existing entity/topic pages** with new information from the source. When new information contradicts existing content, note the contradiction explicitly and cite both sources.
-5. **Add wikilinks** across all affected pages. Every new page should link to at least one existing page, and at least one existing page should link back.
-6. **Update `wiki/index.md`** with entries for every new page.
-7. **Append to `wiki/log.md`** with an ingest entry listing pages created and updated.
+2. **Create new entity/topic pages** for significant concepts, people, tools, etc. that don't already have pages. The primary page for a source should include a concise overview that summarizes the source's key takeaways — readers should not need to open the raw file to understand the gist.
+3. **Update existing entity/topic pages** with new information from the source. When new information contradicts existing content, note the contradiction explicitly and cite both sources.
+4. **Add wikilinks** across all affected pages. Every new page should link to at least one existing page, and at least one existing page should link back.
+5. **Update `wiki/index.md`** with entries for every new page.
+6. **Append to `wiki/log.md`** with an ingest entry listing pages created and updated.
+
+Source metadata (author, date, URL) lives in the raw file header. The frontmatter `sources` field links each wiki page to its raw file(s). There is no separate source summary page — the topic/entity pages themselves carry the synthesis and summary.
 
 When ingesting, prefer depth over breadth. It is better to create a few well-developed pages with good cross-references than many shallow pages.
 

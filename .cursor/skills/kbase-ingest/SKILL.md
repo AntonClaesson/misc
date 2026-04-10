@@ -49,12 +49,11 @@ Use this skill when the user wants to add content to their personal knowledge ba
 
 Read and follow the **Ingest** operation defined in `projects/kbase/SCHEMA.md`. In summary:
 
-1. **Create a source summary page** in `wiki/` (prefixed `source-`).
-2. **Create new entity/topic pages** for significant concepts that don't already have pages.
-3. **Update existing pages** with new information from the source. Flag contradictions explicitly.
-4. **Add wikilinks** — every new page links to at least one existing page, and vice versa.
-5. **Update `wiki/index.md`** with all new pages.
-6. **Append to `wiki/log.md`** with an ingest entry.
+1. **Create new entity/topic pages** for significant concepts that don't already have pages. The primary page for a source should summarize its key takeaways — no separate source summary page.
+2. **Update existing pages** with new information from the source. Flag contradictions explicitly.
+3. **Add wikilinks** — every new page links to at least one existing page, and vice versa.
+4. **Update `wiki/index.md`** with all new pages.
+5. **Append to `wiki/log.md`** with an ingest entry.
 
 Important: read `wiki/index.md` first to understand what pages already exist. Prefer updating existing pages over creating duplicates.
 
@@ -88,8 +87,7 @@ Per the ticket-first gate, every branch must have a corresponding Linear issue. 
 Before committing, verify:
 
 - [ ] Raw file has attribution metadata (source URL, author, date, retrieved date).
-- [ ] Source summary page has correct frontmatter (title, type: source, tags, dates, sources).
-- [ ] All new entity/topic pages have correct frontmatter.
+- [ ] All new entity/topic pages have correct frontmatter (title, type, tags, dates, sources).
 - [ ] All pages use `[[wikilinks]]` for internal cross-references.
 - [ ] Bidirectional links: new pages link to existing pages and existing pages link back.
 - [ ] `wiki/index.md` includes all new pages, alphabetically sorted within categories.

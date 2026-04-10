@@ -17,3 +17,9 @@ First ingest. Processed Andrej Karpathy's "LLM Wiki" idea file (April 2026 GitHu
 Ingested user-produced Gemini Deep Research article on RGB-IR sensor demosaicing, IR upscaling physics, and the ~30% quality-gain cap under mixed lighting. Covers 2.7 MP vs 5 MP architectures, dark-room vs daylight scenarios, and vendor implementations (OmniVision, Sony, STMicro).
 - Pages created: [[source-gemini-rgb-ir-demosaicing]], [[RGB-IR Demosaicing]]
 - Pages updated: [[index]]
+
+## [2026-04-10] maintenance | Remove source summary pages
+
+Removed the source summary page type from SCHEMA.md — topic/entity pages now carry the synthesis and summary directly, and the raw file header provides source metadata. Merged unique content from source pages into their corresponding topic pages, deleted the source summary files, and updated all wikilinks.
+- Pages deleted: source-karpathy-llm-wiki, source-gemini-rgb-ir-demosaicing
+- Pages updated: [[LLM Knowledge Bases]], [[RGB-IR Demosaicing]], [[Memex]], [[Obsidian]], [[Retrieval-Augmented Generation]], [[index]]
