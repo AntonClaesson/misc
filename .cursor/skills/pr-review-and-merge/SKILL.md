@@ -55,7 +55,7 @@ Any one of the following triggers human review:
 - **Cross-project changes** — a single PR touches multiple unrelated projects or areas.
 - **Destructive data operations** — deleting or overwriting files in `data/` or `projects/kbase/raw/`.
 
-When human review is required, **stop here**. Tell the user the PR is ready for their review, summarize why it needs human eyes, and move the Linear issue to In Review. Do not proceed to Step 2.
+When human review is required, **post the review summary** (see Step 3 below) as a comment on the PR, then tell the user the PR is ready for their review, summarize why it needs human eyes, and move the Linear issue to In Review. Do not proceed to merge.
 
 ---
 
@@ -97,19 +97,45 @@ If the change is auto-merge eligible, perform a thorough self-review before merg
 
 ---
 
-## Step 3: Merge
+## Step 3: Post Review Summary
 
-If all checks in Step 2 pass:
+After completing the self-review checklist (or after classifying a change as requiring human review), post a structured review summary as a comment on the PR using the GitHub MCP issue/PR comment tool. This makes the review visible to anyone looking at the PR on GitHub.
 
-1. Mark the PR as ready for review (if it was a draft):
-   ```
-   gh pr ready <PR-number>
-   ```
+The comment should follow this template:
 
-2. Squash-merge the PR (default) or rebase-merge if commit granularity matters:
-   ```
-   gh pr merge <PR-number> --squash --delete-branch=false
-   ```
+```
+## Agent Self-Review
+
+**Risk classification:** <Auto-merge eligible / Requires human review>
+<If human review: one-line reason, e.g., "Modifies shared infrastructure (AGENTS.md, workflow conventions)">
+
+### Checklist Results
+
+| Check | Result |
+|-------|--------|
+| Diff audit | ✅ / ❌ <brief note if failed> |
+| Test verification | ✅ / ❌ <brief note if failed> |
+| Convention compliance | ✅ / ❌ <brief note if failed> |
+| Scope verification | ✅ / ❌ <brief note if failed> |
+
+### Recommendation
+
+<One of:>
+- **Merge** — all checks pass, change is routine and well-tested.
+- **Escalate** — <reason the user should review>.
+```
+
+Adapt the template as needed — keep it concise but include enough detail for the reviewer to understand the agent's assessment without reading the full diff.
+
+---
+
+## Step 4: Merge
+
+If all checks in Step 2 pass and the review summary has been posted (Step 3):
+
+1. Mark the PR as ready for review (if it was a draft) using the GitHub MCP PR update tool.
+
+2. Squash-merge the PR (default) or rebase-merge if commit granularity matters, using the GitHub MCP merge tool.
 
 3. Switch to `main` and pull:
    ```
@@ -127,7 +153,7 @@ If all checks in Step 2 pass:
 
 ---
 
-## Step 4: Post-Merge Verification
+## Step 5: Post-Merge Verification
 
 After merging:
 
@@ -142,15 +168,15 @@ After merging:
 ```
 Start
   │
-  ├─ Did the user request manual review? ──→ YES ──→ STOP: leave PR for human.
+  ├─ Did the user request manual review? ──→ YES ──→ Post review summary → STOP: leave PR for human.
   │
-  ├─ Does any "requires human review" trigger apply? ──→ YES ──→ STOP: leave PR for human.
+  ├─ Does any "requires human review" trigger apply? ──→ YES ──→ Post review summary → STOP: leave PR for human.
   │
-  ├─ Is the change auto-merge eligible? ──→ NO ──→ STOP: leave PR for human.
+  ├─ Is the change auto-merge eligible? ──→ NO ──→ Post review summary → STOP: leave PR for human.
   │
   ├─ Does the self-review checklist pass? ──→ NO ──→ Fix issues, re-push, re-check.
   │
-  └─ All clear ──→ MERGE.
+  └─ All clear ──→ Post review summary → MERGE.
 ```
 
 ---
