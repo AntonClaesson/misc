@@ -1,6 +1,6 @@
 ---
 name: repo-health-check
-description: Audit repo workflow instructions, conventions, skills, and project metadata for consistency and staleness, then fix issues or report all clean. Use periodically to reduce technical debt that accumulates across many agent sessions. Also use proactively after completing a task that modified AGENTS.md, convention docs under docs/conventions/, or multiple Cursor skills.
+description: Audit repo workflow instructions, conventions, skills, and project metadata for consistency and staleness, then fix issues or report all clean. Use periodically to reduce technical debt that accumulates across many agent sessions. Also use proactively after completing a task that modified AGENTS.md, convention docs under docs/conventions/, or multiple skills.
 ---
 
 # Repo Health Check
@@ -20,7 +20,7 @@ Run this skill **after merging your primary task's PR** if that task modified an
 
 - `AGENTS.md`
 - Any file under `docs/conventions/`
-- Two or more skill files under `.cursor/skills/`
+- Two or more skill files under `.cursor/skills/` (or `.github/skills/`)
 - `templates/` files that other docs or skills reference
 
 These are the files that define how agents operate. Changes to them can introduce cross-reference drift, stale instructions in other files, or contradictions — exactly what this skill catches.
@@ -130,7 +130,7 @@ For each directory directly under `projects/`:
 
 ### Check 4: Skill Freshness
 
-Verify that all skills under `.cursor/skills/` reference current conventions and tools.
+Verify that all skills (in `.cursor/skills/`, also accessible via `.github/skills/` symlink) reference current conventions and tools.
 
 **How to check:**
 

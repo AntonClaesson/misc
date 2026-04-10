@@ -111,7 +111,7 @@ This makes the ticket directly navigable to its PR from Linear's board view.
 
 ### 2. Follow the review-and-merge skill
 
-Follow the `pr-review-and-merge` skill in `.cursor/skills/` to decide whether to self-merge or escalate to the user.
+Follow the `pr-review-and-merge` skill to decide whether to self-merge or escalate to the user.
 
 - **Default:** agent self-reviews and merges routine, well-tested changes.
 - **Escalate:** share the PR URL with the user for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.

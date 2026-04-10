@@ -139,7 +139,7 @@ Processing a new raw source into the wiki. This is the primary way the wiki grow
 
 When ingesting, prefer depth over breadth. It is better to create a few well-developed pages with good cross-references than many shallow pages.
 
-For the full orchestration workflow (fetching URLs, git cycle, Linear updates), see the `kbase-ingest` skill in `.cursor/skills/`.
+For the full orchestration workflow (fetching URLs, git cycle, Linear updates), see the `kbase-ingest` skill.
 
 #### Web Sources
 

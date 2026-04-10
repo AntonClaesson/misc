@@ -78,7 +78,7 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 
 ### After Opening
 
-- Follow the `pr-review-and-merge` skill in `.cursor/skills/` to determine whether to self-merge or escalate.
+- Follow the `pr-review-and-merge` skill to determine whether to self-merge or escalate.
 - **Default: agent self-reviews and merges** routine, well-tested changes.
 - **Escalate to the user** for high-risk, destructive, or ambiguous changes, or when the user explicitly requested manual review.
 - If escalating, share the PR URL with the user and wait for review feedback.

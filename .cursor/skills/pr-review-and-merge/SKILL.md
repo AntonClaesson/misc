@@ -38,7 +38,7 @@ Examples of auto-merge eligible changes:
 | kbase ingest (new wiki pages) | Additive content, no existing behavior changed. |
 | Bug fix in a single project with passing tests | Narrowly scoped, verified. |
 | Documentation updates (README, PLAN.md, task notes) | Low risk, no behavior change. |
-| New or updated Cursor skill | Additive tooling, does not break existing flows. |
+| New or updated agent skill | Additive tooling, does not break existing flows. |
 | Small config change within one project | Scoped, non-destructive. |
 | Updating workflow docs to add a new convention or clarify existing ones | Additive policy change. |
 
