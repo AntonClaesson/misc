@@ -84,7 +84,7 @@ If the change is auto-merge eligible, perform a thorough self-review before merg
 2. **Commit messages** are descriptive and reference the issue ID.
 3. **PR title and body** follow the format in the `open-pr` skill.
 4. **PR → Ticket reference** — the PR title includes the Linear issue ID (e.g., `ANT-12: ...`). If the PR tool allowed it, the body also contains a `## Linear issue` section with a clickable link.
-5. **Ticket → PR link** — the Linear ticket has a link attachment pointing back to the PR. If missing, add it now using `Linear-save_issue` with `links`. This is the primary navigable cross-link.
+5. **Ticket → PR link** — the Linear ticket has a link attachment pointing back to the PR. If missing, add it now using the Linear MCP issue update tool with a `links` entry. This is the primary navigable cross-link.
 6. **Task notes** (PLAN.md, TODO.md) are updated if they exist for this area.
 7. **Linear issue** status is current (should be In Progress or In Review).
 8. **README** is updated if the change adds a new project or changes how something is run.

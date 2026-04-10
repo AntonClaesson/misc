@@ -136,7 +136,7 @@ This repo supports multiple agent backends. The core workflow (branching, ticket
 
 | Backend | Interface | MCP servers | Skills path |
 |---------|-----------|-------------|-------------|
-| **Cursor Cloud Agents** | Cursor web chat | Auto-injected (GitHub, Linear) | `.cursor/skills/` |
+| **Cursor Cloud Agents** | Cursor web chat | Managed by Cursor (not configured in this repo) | `.cursor/skills/` |
 | **GitHub Copilot CLI** | Terminal (`copilot`) | GitHub built-in; Linear via `.github/mcp.json` | `.github/skills/` (symlink → `.cursor/skills/`) |
 
 ### Working on a specific project (all backends)

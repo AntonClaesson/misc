@@ -19,7 +19,7 @@ Only squash merge and rebase merge are enabled. Merge commits are disabled.
 - **Squash merge** (default): use for most initiative branches — produces one clean commit on `main`.
 - **Rebase merge**: use when the branch has multiple commits that each stand on their own and the granularity is worth preserving.
 
-When merging via `github-merge_pull_request`, pass `merge_method: "squash"` (default) or `merge_method: "rebase"`.
+When merging via the GitHub MCP merge tool, pass `merge_method: "squash"` (default) or `merge_method: "rebase"`.
 
 ## Branch Naming
 
@@ -60,7 +60,7 @@ Before every push, verify that the working tree and nearby notes are consistent.
 
 ## Pull Requests
 
-Use the GitHub MCP tools (`github-create_pull_request`, `github-pull_request_read`, etc.) for all PR operations rather than shell commands.
+Use the GitHub MCP server's PR tools for all PR operations rather than shell commands. Tool names vary by agent backend — use whichever matching tools are in your available toolset.
 
 ### When To Open
 
@@ -74,7 +74,7 @@ Do not open a PR speculatively. If intent is ambiguous, confirm with the user fi
 
 - **Title:** concise, imperative mood, prefixed with the Linear issue ID (e.g., `ANT-7: Add meal planner`). The issue ID in the title makes the PR searchable from Linear and vice versa.
 - **Body:** short summary of what changed and why, plus notes for the reviewer. Include a `## Linear issue` section with a clickable link to the ticket when the PR tool allows it. If the tool strips URLs (e.g., Cursor Cloud Agents), the issue ID in the title is sufficient. Avoid re-listing every commit.
-- **Ticket→PR link:** after opening the PR, attach the PR URL as a link on the Linear ticket using `Linear-save_issue`. This is the most reliable cross-link and enables one-click navigation from Linear's board view to the PR.
+- **Ticket→PR link:** after opening the PR, attach the PR URL as a link on the Linear ticket using the Linear MCP issue update tool. This is the most reliable cross-link and enables one-click navigation from Linear's board view to the PR.
 
 ### After Opening
 
@@ -91,7 +91,7 @@ See the `open-pr` skill for PR creation and the `pr-review-and-merge` skill for 
 
 Once a PR is merged:
 
-1. Verify the merge via `github-pull_request_read` (method: `get`).
+1. Verify the merge via the GitHub MCP PR read tool — confirm the PR is merged.
 2. Check out `main` and pull the latest.
 3. Delete the initiative branch locally.
 4. **Keep the remote branch** — do not delete it. Remote branches are preserved for future context and history.

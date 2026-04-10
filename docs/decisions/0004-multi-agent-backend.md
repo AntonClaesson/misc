@@ -20,7 +20,7 @@ Key changes:
 
 2. **AGENTS.md restructure:** The document now has a generic "Agent Backend Support" section with a table of supported backends, followed by backend-specific subsections (Cursor Cloud, Copilot CLI). Shared guidance (working on projects, lint/test/build) is backend-agnostic.
 
-3. **MCP configuration:** `.github/mcp.json` is committed with the official Linear MCP server endpoint (OAuth-based, no secrets in the file). GitHub MCP is built into Copilot CLI. For Cursor, MCP servers are auto-injected.
+3. **MCP configuration:** Each backend manages its own MCP server access independently. `.github/mcp.json` is committed with the official Linear MCP server endpoint (OAuth-based, no secrets in the file) for Copilot CLI. GitHub MCP is built into Copilot CLI. Cursor Cloud Agents receive their MCP servers from Cursor's own infrastructure — no repo-level configuration is needed or used.
 
 4. **Copilot instructions:** `.github/copilot-instructions.md` points to `AGENTS.md` as the single source of truth.
 
