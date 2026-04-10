@@ -13,7 +13,7 @@ sources:
 
 # Memex
 
-A hypothetical device described by [[Vannevar Bush]] in his 1945 essay "As We May Think." The Memex was envisioned as a personal, mechanized knowledge store where an individual could store all their books, records, and communications, and retrieve them with speed and flexibility.
+A hypothetical device described by [[vannevar-bush|Vannevar Bush]] in his 1945 essay "As We May Think." The Memex was envisioned as a personal, mechanized knowledge store where an individual could store all their books, records, and communications, and retrieve them with speed and flexibility.
 
 ## Key Features
 
@@ -23,7 +23,7 @@ A hypothetical device described by [[Vannevar Bush]] in his 1945 essay "As We Ma
 
 ## Relevance to LLM Knowledge Bases
 
-According to [[Andrej Karpathy|Karpathy]], the [[LLM Knowledge Bases]] pattern is closer in spirit to Bush's Memex than to what the web became. Both are:
+According to [[andrej-karpathy|Karpathy]], the [[llm-knowledge-bases|LLM Knowledge Bases]] pattern is closer in spirit to Bush's Memex than to what the web became. Both are:
 
 - Private, actively curated knowledge stores
 - Built on associative connections between documents
@@ -33,5 +33,5 @@ The part Bush couldn't solve was **who does the maintenance** — creating and u
 
 ## Related
 
-- [[Vannevar Bush]] — originated the concept
-- [[LLM Knowledge Bases]] — modern realization of the vision
+- [[vannevar-bush|Vannevar Bush]] — originated the concept
+- [[llm-knowledge-bases|LLM Knowledge Bases]] — modern realization of the vision

@@ -17,12 +17,12 @@ AI researcher and educator known for his work on deep learning, computer vision,
 
 ## Key Ideas
 
-In April 2026, Karpathy introduced the [[LLM Knowledge Bases]] pattern — an approach to using LLMs as persistent wiki maintainers rather than one-shot answer generators. He shared the idea as an "idea file" on GitHub, designed to be given directly to an LLM agent to implement collaboratively.
+In April 2026, Karpathy introduced the [[llm-knowledge-bases|LLM Knowledge Bases]] pattern — an approach to using LLMs as persistent wiki maintainers rather than one-shot answer generators. He shared the idea as an "idea file" on GitHub, designed to be given directly to an LLM agent to implement collaboratively.
 
 His key observation: "A large fraction of my recent token throughput is going less into manipulating code, and more into manipulating knowledge." This reflects a shift from LLMs as coding tools to LLMs as knowledge management tools.
 
 ## Connections
 
-- Proposed the [[LLM Knowledge Bases]] pattern as an alternative to [[Retrieval-Augmented Generation]]
-- Uses [[Obsidian]] as the frontend IDE for wiki browsing
-- Referenced [[Vannevar Bush]]'s [[Memex]] as a historical precursor to the idea
+- Proposed the [[llm-knowledge-bases|LLM Knowledge Bases]] pattern as an alternative to [[retrieval-augmented-generation|Retrieval-Augmented Generation]]
+- Uses [[obsidian|Obsidian]] as the frontend IDE for wiki browsing
+- Referenced [[vannevar-bush|Vannevar Bush]]'s [[memex|Memex]] as a historical precursor to the idea

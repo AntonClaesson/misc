@@ -19,7 +19,7 @@ projects/kbase/
 ## Content Rules
 
 - All wiki pages are plain markdown files in `wiki/`.
-- Use **Obsidian-style wikilinks** for internal cross-references: `[[Page Name]]`. Do not use standard markdown links for internal pages.
+- Use **Obsidian-style wikilinks** for internal cross-references. The link target **must** be the kebab-case filename (without `.md`), not the page title. Use the pipe syntax to provide a human-readable display text: `[[kebab-case-filename|Display Text]]`. Example: `[[andrej-karpathy|Andrej Karpathy]]`. Obsidian resolves wikilinks by filename — using the title instead of the filename creates broken links. Do not use standard markdown links for internal pages.
 - Use **Mermaid** diagrams in fenced code blocks (` ```mermaid `) for visual content — flowcharts, sequence diagrams, mind maps, ER diagrams, state machines, etc.
 - Use **LaTeX** for math: `$...$` inline, `$$...$$` block. Obsidian renders these via MathJax.
 - **No binary files.** No images, PDFs, drawio files, or any non-text content. If something needs a visual, use Mermaid or describe it in text.
@@ -89,7 +89,7 @@ A broader subject that synthesizes information across multiple sources and entit
 The master catalog of all wiki pages. No frontmatter needed.
 
 - Organized by category: Entities, Topics.
-- Each entry: a wikilink followed by a one-line description.
+- Each entry: a wikilink (using `[[kebab-filename|Display Title]]` syntax) followed by a one-line description.
 - Keep alphabetically sorted within each category.
 - Update the index every time you create a new page.
 
@@ -103,8 +103,8 @@ Each entry follows this format:
 ## [YYYY-MM-DD] operation | Short description
 
 Brief details of what was done.
-- Pages created: [[Page One]], [[Page Two]]
-- Pages updated: [[Page Three]]
+- Pages created: [[page-one|Page One]], [[page-two|Page Two]]
+- Pages updated: [[page-three|Page Three]]
 ```
 
 Valid operations: `ingest`, `query`, `lint`, `init`, `maintenance`.

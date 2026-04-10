@@ -14,7 +14,7 @@ sources:
 
 # LLM Knowledge Bases
 
-A pattern for building personal or team knowledge bases where an LLM incrementally builds and maintains a persistent wiki from raw source documents. Introduced by [[Andrej Karpathy]] in April 2026 as an alternative to [[Retrieval-Augmented Generation]].
+A pattern for building personal or team knowledge bases where an LLM incrementally builds and maintains a persistent wiki from raw source documents. Introduced by [[andrej-karpathy|Andrej Karpathy]] in April 2026 as an alternative to [[retrieval-augmented-generation|Retrieval-Augmented Generation]].
 
 ## Core Concept
 
@@ -63,7 +63,7 @@ A single ingest can touch 10-15 wiki pages. Good query answers should be filed b
 
 ## Applications
 
-According to [[Andrej Karpathy|Karpathy's original gist]], the pattern applies to:
+According to [[andrej-karpathy|Karpathy's original gist]], the pattern applies to:
 
 - **Personal** — goals, health, self-improvement, journal entries
 - **Research** — deep-dives over weeks or months with evolving thesis
@@ -73,11 +73,11 @@ According to [[Andrej Karpathy|Karpathy's original gist]], the pattern applies t
 
 ## Historical Context
 
-The idea echoes [[Vannevar Bush]]'s [[Memex]] (1945) — a personal knowledge store with associative trails. Bush envisioned connections between documents as valuable as the documents themselves. The missing piece was who does the maintenance; LLMs solve that.
+The idea echoes [[vannevar-bush|Vannevar Bush]]'s [[memex|Memex]] (1945) — a personal knowledge store with associative trails. Bush envisioned connections between documents as valuable as the documents themselves. The missing piece was who does the maintenance; LLMs solve that.
 
 ## Navigation at Scale
 
-According to [[Andrej Karpathy|Karpathy]], two structural files support navigation even as the wiki grows:
+According to [[andrej-karpathy|Karpathy]], two structural files support navigation even as the wiki grows:
 
 - **index.md** — content-oriented catalog of all pages, organized by category. The LLM reads this first when answering queries. Works well up to ~100 sources / hundreds of pages without needing embedding-based search.
 - **log.md** — chronological, append-only record of operations. Parseable with unix tools (`grep "^## \[" wiki/log.md | tail -5` gives the last five entries).
@@ -90,7 +90,7 @@ Humans abandon wikis because maintenance burden grows faster than value. LLMs el
 
 ## Related
 
-- [[Retrieval-Augmented Generation]] — the dominant alternative approach
-- [[Obsidian]] — recommended frontend for browsing the wiki
-- [[Andrej Karpathy]] — originated the pattern
-- [[Memex]] — historical precursor
+- [[retrieval-augmented-generation|Retrieval-Augmented Generation]] — the dominant alternative approach
+- [[obsidian|Obsidian]] — recommended frontend for browsing the wiki
+- [[andrej-karpathy|Andrej Karpathy]] — originated the pattern
+- [[memex|Memex]] — historical precursor
