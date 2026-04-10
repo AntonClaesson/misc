@@ -152,4 +152,4 @@ The trend is toward **on-sensor ISP** — performing NIR subtraction, demosaicin
 
 ## Related
 
-- [[LLM Knowledge Bases]] — the pattern this wiki follows
+- [[llm-knowledge-bases|LLM Knowledge Bases]] — the pattern this wiki follows

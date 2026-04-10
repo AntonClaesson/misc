@@ -27,9 +27,9 @@ Products like NotebookLM, ChatGPT file uploads, and most enterprise "chat with y
 
 ## Limitations
 
-According to [[Andrej Karpathy|Karpathy]], RAG has a fundamental limitation: **it re-derives knowledge from scratch on every query.** There is no accumulation. Ask a question that requires synthesizing five documents, and the LLM must find and piece together the relevant fragments every time.
+According to [[andrej-karpathy|Karpathy]], RAG has a fundamental limitation: **it re-derives knowledge from scratch on every query.** There is no accumulation. Ask a question that requires synthesizing five documents, and the LLM must find and piece together the relevant fragments every time.
 
-Specific weaknesses compared to the [[LLM Knowledge Bases]] pattern:
+Specific weaknesses compared to the [[llm-knowledge-bases|LLM Knowledge Bases]] pattern:
 
 - No persistent cross-referencing between documents
 - Contradictions between sources go undetected
@@ -47,5 +47,5 @@ RAG remains appropriate when:
 
 ## Related
 
-- [[LLM Knowledge Bases]] — the alternative pattern that compiles knowledge persistently
-- [[Andrej Karpathy]] — contrasted RAG with the LLM Wiki approach
+- [[llm-knowledge-bases|LLM Knowledge Bases]] — the alternative pattern that compiles knowledge persistently
+- [[andrej-karpathy|Andrej Karpathy]] — contrasted RAG with the LLM Wiki approach
