@@ -23,7 +23,7 @@ A hypothetical device described by [[Vannevar Bush]] in his 1945 essay "As We Ma
 
 ## Relevance to LLM Knowledge Bases
 
-According to [[source-karpathy-llm-wiki|Karpathy]], the [[LLM Knowledge Bases]] pattern is closer in spirit to Bush's Memex than to what the web became. Both are:
+According to [[Andrej Karpathy|Karpathy]], the [[LLM Knowledge Bases]] pattern is closer in spirit to Bush's Memex than to what the web became. Both are:
 
 - Private, actively curated knowledge stores
 - Built on associative connections between documents

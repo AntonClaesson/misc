@@ -16,7 +16,7 @@ sources:
 
 # RGB-IR Demosaicing
 
-RGB-IR sensors embed dedicated near-infrared (NIR) pixels into a color filter array (CFA), typically using a 4×4 pattern instead of the standard 2×2 Bayer mosaic. This eliminates mechanical IR-cut switching and enables simultaneous, pixel-aligned RGB + IR video from a single lens — but at the cost of allocating only ~25% of the sensor to IR, making the native IR resolution one-quarter of total megapixels. Computational demosaicing and guided upscaling attempt to recover the missing spatial information, with results that vary dramatically depending on scene illumination. According to [[source-gemini-rgb-ir-demosaicing|the Gemini Deep Research source]], the ~30% quality-gain cap in mixed lighting is theoretically sound and empirically validated.
+RGB-IR sensors embed dedicated near-infrared (NIR) pixels into a color filter array (CFA), typically using a 4×4 pattern instead of the standard 2×2 Bayer mosaic. This eliminates mechanical IR-cut switching and enables simultaneous, pixel-aligned RGB + IR video from a single lens — but at the cost of allocating only ~25% of the sensor to IR, making the native IR resolution one-quarter of total megapixels. Computational demosaicing and guided upscaling attempt to recover the missing spatial information, with results that vary dramatically depending on scene illumination. According to the source, the ~30% quality-gain cap in mixed lighting is theoretically sound and empirically validated.
 
 ## Sensor Architecture
 
@@ -42,7 +42,7 @@ Per the Nyquist–Shannon sampling theorem, sub-sampling IR to one-quarter of th
 | 2.7 MP | ~2,700,000 | **~0.675 MP** | ~2.025 MP |
 | 5 MP | ~5,000,000 | **~1.25 MP** | ~3.75 MP |
 
-The 5 MP sensor exceeds the ~0.92 MP threshold for 720p-equivalent IR natively — the 2.7 MP sensor does not. According to [[source-gemini-rgb-ir-demosaicing|the source]], this baseline difference is decisive in daylight where upscaling algorithms lose effectiveness.
+The 5 MP sensor exceeds the ~0.92 MP threshold for 720p-equivalent IR natively — the 2.7 MP sensor does not. According to the source, this baseline difference is decisive in daylight where upscaling algorithms lose effectiveness.
 
 ## Physics: NIR Leakage in RGB Pixels
 
@@ -78,7 +78,7 @@ flowchart LR
 
 - **Classical interpolation** (bilinear/bicubic on sparse IR): severe blur; cannot recover frequencies above the sparse grid's Nyquist limit.
 - **Guided upsampling**: uses the assumption that visible and IR share structural gradients — edges, contours, textures. Works when the assumption holds.
-- **Deep models** (GIRRE, LapSRN-style, sub-pixel convolution networks): multi-modal fusion of sparse IR + dense RGB. Per [[source-gemini-rgb-ir-demosaicing|the source]], GIRRE-class approaches achieve ~1.2–1.8 dB PSNR over strong SISR baselines, correlating to ~20–30% perceptual MTF improvement.
+- **Deep models** (GIRRE, LapSRN-style, sub-pixel convolution networks): multi-modal fusion of sparse IR + dense RGB. Per the source, GIRRE-class approaches achieve ~1.2–1.8 dB PSNR over strong SISR baselines, correlating to ~20–30% perceptual MTF improvement.
 
 ## Scenario A: Active IR, No Visible Light (Dark Room)
 
@@ -121,7 +121,7 @@ The 5 MP sensor survives daylight through brute-force baseline; the 2.7 MP senso
 
 ## The ~30% Cap in Mixed Lighting
 
-Under twilight, overcast, or controlled indoor light, some cross-channel correlation survives. Per [[source-gemini-rgb-ir-demosaicing|the source]], the maximum quality gain is bounded at ~30%:
+Under twilight, overcast, or controlled indoor light, some cross-channel correlation survives. Per the source, the maximum quality gain is bounded at ~30%:
 
 - Cross-modal SSIM/PSNR transfer hits a strict **asymptotic limit**.
 - GIRRE-class networks achieve **~1.2–1.8 dB PSNR** gain → roughly **~20–30% MTF** improvement.
@@ -152,4 +152,4 @@ The trend is toward **on-sensor ISP** — performing NIR subtraction, demosaicin
 
 ## Related
 
-- [[source-gemini-rgb-ir-demosaicing]] — full source summary for this article
+- [[LLM Knowledge Bases]] — the pattern this wiki follows
