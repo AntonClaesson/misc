@@ -33,7 +33,7 @@ Top-level areas:
 - `docs/`
 - `data/`
 
-Agent skills live in `.cursor/skills/`, not as a top-level directory.
+Agent skills live in `.cursor/skills/` (canonical), with a symlink at `.github/skills/` for Copilot CLI compatibility.
 
 ## Consequences
 
