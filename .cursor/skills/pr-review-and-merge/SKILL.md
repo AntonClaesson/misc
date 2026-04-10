@@ -50,7 +50,7 @@ Any one of the following triggers human review:
 - **Changes to shared infrastructure with breaking potential** — modifying `scripts/`, `packages/`, `templates/`, or MCP server code in ways that could affect multiple consumers.
 - **Security-sensitive changes** — anything touching authentication, secrets handling, permissions, or `.gitignore` patterns for sensitive files.
 - **Ambiguity or uncertainty** — the agent is not confident the change is correct, the requirements were unclear, or the work involved significant judgment calls the user should validate.
-- **User explicitly requested review** — the user said "I'll review", "leave it for me", "open a PR for review", or similar.
+- **User explicitly requested review** — the user said "I'll review", "leave it for me", "open a PR for review", "do not merge without my approval", or similar.
 - **Changes that redefine core agent behavior** — rewriting (not just extending) the fundamental rules in `AGENTS.md`, workflow conventions, or the safety section.
 - **Cross-project changes** — a single PR touches multiple unrelated projects or areas.
 - **Destructive data operations** — deleting or overwriting files in `data/` or `projects/kbase/raw/`.
