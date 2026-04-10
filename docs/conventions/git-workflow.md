@@ -42,13 +42,21 @@ Before committing non-trivial work:
 
 ## When To Push
 
-Push only when:
+The remote initiative branch should reflect **committed** progress so others can follow the work on GitHub without waiting for a PR.
 
-- the user explicitly asks,
-- a shared checkpoint is needed for collaboration, or
-- a workflow (e.g., CI, PR) clearly requires it.
+Push to `origin` when **any** of these checkpoints is met:
 
-Before pushing, verify that the working tree and nearby notes are consistent.
+1. **First meaningful commit** on the branch — establish the remote tracking branch early (`git push -u origin <branch>`).
+2. **Each subsequent milestone** — after a coherent batch of commits (feature slice, fix, or doc update) that you would be comfortable showing as work-in-progress.
+3. **Task note updates** — when you update PLAN.md / TODO.md / WORKLOG.md for a visible milestone, push the commits that go with that note in the same step.
+4. **Before PR operations** — opening a PR, updating a PR branch from `main`, or pushing review feedback always implies a push; the branch should already be current from ongoing checkpoints.
+5. **End of an agent turn** — if the session produced commits that are not yet on the remote, push before stopping so progress is not stranded locally.
+
+Also push when the user asks or when CI, deploy previews, or another automation needs the remote branch.
+
+**Do not** push instead of committing: commit first, then push. Avoid force-pushing shared initiative branches.
+
+Before every push, verify that the working tree and nearby notes are consistent.
 
 ## Pull Requests
 

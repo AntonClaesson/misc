@@ -43,8 +43,10 @@ Agent skills live in `.cursor/skills/`.
 
 **Push policy:**
 
-- Do not push unless the user explicitly asks or the workflow clearly requires it.
-- Before pushing, ensure the working tree and nearby markdown notes are consistent.
+- Keep the remote initiative branch up to date with **committed** work so progress is visible before a PR exists. Push at the checkpoints in `docs/conventions/git-workflow.md` (first meaningful commit, each subsequent milestone, before PR operations, and after any commit batch when the session may end).
+- Also push when the user explicitly asks or when CI or another workflow step needs the remote branch.
+- Use `git push -u origin <branch>` the first time; afterward `git push` on that branch is enough.
+- Before pushing, ensure the working tree and nearby markdown notes are consistent. Do not push uncommitted work in place of commits.
 
 **Pull requests:**
 
@@ -166,6 +168,7 @@ Keep the update script minimal and idempotent. Only add dependency-install comma
 ### Gotchas
 
 - `main` is branch-protected; always work on an initiative branch.
+- Push the initiative branch to `origin` at the checkpoints in `docs/conventions/git-workflow.md` so progress is visible on GitHub before a PR exists (same policy as root **Push policy**).
 - The `.obsidian/` config is local-only (gitignored) and must be recreated each Cloud Agent session.
 - Obsidian may show a "Trust author" dialog on first launch — dismiss it to proceed.
 - The VM has `nvm` pre-installed. If a project uses a different Node version manager (e.g. `mise`, `fnm`), disable nvm first.

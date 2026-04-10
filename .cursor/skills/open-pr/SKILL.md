@@ -13,7 +13,7 @@ All branching and commit rules are in `AGENTS.md`. This skill covers the PR life
 
 - The GitHub MCP server is available (tools prefixed `github-`).
 - Work has been committed to an initiative branch (not `main`).
-- The branch has been pushed to the remote. If not, push with `git push -u origin HEAD` before proceeding.
+- The branch has been pushed to the remote. Per `docs/conventions/git-workflow.md`, agents should already be pushing at checkpoints while work is in progress; if the branch is not on the remote yet, push with `git push -u origin HEAD` before proceeding.
 
 ## When To Open A PR
 
